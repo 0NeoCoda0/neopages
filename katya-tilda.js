@@ -1,7 +1,7 @@
 /* ==========================================================================
    КОНВЕЙЕР КАТИ — КАСТОМНЫЕ СКРИПТЫ ДЛЯ TILDA
    Автоматически подключаемый JS-файл через GitHub Pages CDN.
-   Служит для инжекции блоков, интерактивности, аналитики и перехвата лидов.
+   Служит для инжекции блоков, навигационного сайдбара, аналитики и лидов.
    ========================================================================== */
 
 (function() {
@@ -9,7 +9,6 @@
 
   console.log('[Конвейер Кати] Скрипт внешнего управления успешно загружен (GitHub Pages CDN).');
 
-  // Запуск инжекции блоков и обработчиков
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', init);
   } else {
@@ -17,29 +16,166 @@
   }
 
   function init() {
+    injectLeftSidebarNav();
     injectShowcaseBlock();
     initFormHandlers();
   }
 
   /**
-   * Создает и вставляет авторский блок студии под верхним блоком (Hero/Cover)
+   * 1. Внедрение левой панели категорий (The Magic Shop style)
+   */
+  function injectLeftSidebarNav() {
+    if (document.getElementById('katya-sidebar-wrapper')) {
+      return;
+    }
+
+    // Создаем плавающую кнопку-триггер меню слева
+    var triggerBtn = document.createElement('button');
+    triggerBtn.id = 'katya-sidebar-trigger';
+    triggerBtn.className = 'katya-sidebar-trigger-btn';
+    triggerBtn.setAttribute('aria-label', 'Открыть меню');
+    triggerBtn.innerHTML = `
+      <span class="katya-burger-icon">
+        <span></span>
+        <span></span>
+      </span>
+      <span class="katya-burger-text">МЕНЮ</span>
+    `;
+
+    // Создаем выдвижной сайдбар слева
+    var sidebarWrapper = document.createElement('div');
+    sidebarWrapper.id = 'katya-sidebar-wrapper';
+    sidebarWrapper.className = 'katya-sidebar-wrapper';
+
+    sidebarWrapper.innerHTML = `
+      <div class="katya-sidebar-overlay" id="katya-sidebar-overlay"></div>
+      <aside class="katya-sidebar-panel" aria-label="Боковая навигация">
+        <div class="katya-sidebar-header">
+          <div class="katya-sidebar-brand">✦ КАТЯ ЛАНЧИКОВА ✦</div>
+          <button type="button" class="katya-sidebar-close" id="katya-sidebar-close" aria-label="Закрыть меню">✕</button>
+        </div>
+
+        <nav class="katya-sidebar-nav">
+          <ul class="katya-nav-list">
+            <!-- 1. Магазин с подразделами -->
+            <li class="katya-nav-item katya-has-sub">
+              <a href="#katya-sec-shop" class="katya-nav-link" data-target="shop">
+                <span class="katya-nav-num">01</span>
+                <span class="katya-nav-title">Магазин</span>
+              </a>
+              <ul class="katya-sub-nav">
+                <li><a href="#katya-sec-shop" class="katya-sub-link" data-cat="vases">🏺 Вазы</a></li>
+                <li><a href="#katya-sec-shop" class="katya-sub-link" data-cat="candles">🕯️ Подсвечники</a></li>
+                <li><a href="#katya-sec-shop" class="katya-sub-link" data-cat="toys">🎄 Керамические ёлочные игрушки</a></li>
+              </ul>
+            </li>
+
+            <!-- 2. Корпоративные заказы (между магазином и архивом) -->
+            <li class="katya-nav-item">
+              <a href="#katya-sec-corporate" class="katya-nav-link" data-target="corporate">
+                <span class="katya-nav-num">02</span>
+                <span class="katya-nav-title">Корпоративные заказы</span>
+                <span class="katya-badge-pill">B2B</span>
+              </a>
+            </li>
+
+            <!-- 3. Архив -->
+            <li class="katya-nav-item">
+              <a href="#katya-sec-archive" class="katya-nav-link" data-target="archive">
+                <span class="katya-nav-num">03</span>
+                <span class="katya-nav-title">Архив</span>
+              </a>
+            </li>
+
+            <!-- 4. Обо мне -->
+            <li class="katya-nav-item">
+              <a href="#katya-sec-about" class="katya-nav-link" data-target="about">
+                <span class="katya-nav-num">04</span>
+                <span class="katya-nav-title">Обо мне</span>
+              </a>
+            </li>
+
+            <!-- 5. Контакты -->
+            <li class="katya-nav-item">
+              <a href="#katya-sec-contacts" class="katya-nav-link" data-target="contacts">
+                <span class="katya-nav-num">05</span>
+                <span class="katya-nav-title">Контакты</span>
+              </a>
+            </li>
+
+            <!-- 6. Частые вопросы -->
+            <li class="katya-nav-item">
+              <a href="#katya-sec-faq" class="katya-nav-link" data-target="faq">
+                <span class="katya-nav-num">06</span>
+                <span class="katya-nav-title">Ответы на вопросы</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+
+        <div class="katya-sidebar-footer">
+          <div class="katya-shipping-note">
+            📦 <b>Доставка:</b> расчет при оформлении заказа и в B2B-смете. Гарантия целостности по РФ.
+          </div>
+          <div class="katya-social-links">
+            <a href="https://t.me/" target="_blank" rel="noopener">Telegram</a>
+            <span>·</span>
+            <a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+          </div>
+        </div>
+      </aside>
+    `;
+
+    document.body.appendChild(triggerBtn);
+    document.body.appendChild(sidebarWrapper);
+
+    // События открытия/закрытия
+    function openSidebar() {
+      sidebarWrapper.classList.add('katya-active');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeSidebar() {
+      sidebarWrapper.classList.remove('katya-active');
+      document.body.style.overflow = '';
+    }
+
+    triggerBtn.addEventListener('click', openSidebar);
+    document.getElementById('katya-sidebar-close').addEventListener('click', closeSidebar);
+    document.getElementById('katya-sidebar-overlay').addEventListener('click', closeSidebar);
+
+    // Закрытие при клике на ссылку внутри сайдбара
+    var links = sidebarWrapper.querySelectorAll('a');
+    links.forEach(function(link) {
+      link.addEventListener('click', function(e) {
+        closeSidebar();
+        var targetId = link.getAttribute('href');
+        if (targetId && targetId.startsWith('#')) {
+          var targetEl = document.querySelector(targetId);
+          if (targetEl) {
+            e.preventDefault();
+            targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+        }
+      });
+    });
+  }
+
+  /**
+   * 2. Создает авторский навигационный блок-хаб на Главной странице,
+   * дублирующий все 6 разделов со ссылками на отдельные страницы.
    */
   function injectShowcaseBlock() {
     var blockId = 'katya-custom-showcase-block';
-    
-    // Проверка на дубликат
     if (document.getElementById(blockId)) {
       return;
     }
 
-    // Ищем верхний блок (по ID rec2112149101 или первый t-rec в контейнере)
     var topBlock = document.getElementById('rec2112149101') || document.querySelector('.t-records > .t-rec');
     if (!topBlock) {
-      console.warn('[Конвейер Кати] Верхний блок не найден для вставки.');
       return;
     }
 
-    // Создаем контейнер блока
     var section = document.createElement('div');
     section.id = blockId;
     section.className = 'katya-showcase-section r t-rec';
@@ -48,65 +184,104 @@
       <div class="katya-container">
         <div class="katya-badge">
           <span class="katya-badge-dot"></span>
-          ✦ СТУДИЯ КАТИ ЛАНЧИКОВОЙ · SLOW CRAFT ✦
+          ✦ СТУДИЯ КАТИ ЛАНЧИКОВОЙ · НАВИГАЦИЯ ШОУРУМА ✦
         </div>
 
         <h2 class="katya-title">Рукотворная магия в каждом прикосновении</h2>
         
         <p class="katya-subtitle">
-          Мы создаем посуду и предметы интерьера, в которых живет тепло человеческих рук.
-          Неидеальные органические формы, тактильная шероховатость глины и игра высокотемпературных глазурей.
+          Мы создаем керамику, в которой живет тепло человеческих рук.
+          Используйте левое меню или переходите в нужный раздел прямо с главной страницы:
         </p>
 
-        <div class="katya-grid">
-          <div class="katya-card">
-            <div class="katya-card-icon">🏺</div>
-            <h3 class="katya-card-title">100% Ручная работа</h3>
-            <p class="katya-card-text">Каждое изделие формуется на гончарном круге или вручную из пласта. Никакой фабричной штамповки — только живая пластика.</p>
+        <!-- Навигационная сетка из 6 разделов (в точности дублирует сайдбар) -->
+        <div class="katya-hub-grid">
+          
+          <!-- 1. Магазин -->
+          <div class="katya-hub-card" id="katya-sec-shop">
+            <div class="katya-hub-header">
+              <span class="katya-hub-num">01</span>
+              <span class="katya-hub-tag">Каталог</span>
+            </div>
+            <h3 class="katya-hub-title">Магазин</h3>
+            <p class="katya-hub-desc">Авторские коллекции в наличии и под заказ: интерьерные вазы, скульптурные подсвечники и праздничные ёлочные игрушки.</p>
+            <div class="katya-hub-sublinks">
+              <span>🏺 Вазы</span> · <span>🕯️ Подсвечники</span> · <span>🎄 Ёлочные игрушки</span>
+            </div>
+            <a href="#katya-sec-shop" class="katya-hub-action">Смотреть изделия →</a>
           </div>
 
-          <div class="katya-card">
-            <div class="katya-card-icon">🌿</div>
-            <h3 class="katya-card-title">Экологичные материалы</h3>
-            <p class="katya-card-text">Натуральная каменная глина и безопасные пищевые глазури. Высокий обжиг 1250°C гарантирует прочность и долговечность.</p>
+          <!-- 2. Корпоративные заказы (между магазином и архивом) -->
+          <div class="katya-hub-card katya-card-highlight" id="katya-sec-corporate">
+            <div class="katya-hub-header">
+              <span class="katya-hub-num">02</span>
+              <span class="katya-badge-pill">B2B</span>
+            </div>
+            <h3 class="katya-hub-title">Корпоративные заказы</h3>
+            <p class="katya-hub-desc">Подарки со смыслом для партнеров и коллег с вашим логотипом. Тиражи от 20 до 500+ шт., интерактивный расчет сметы и договор.</p>
+            <div class="katya-hub-sublinks">
+              <span>⚡ Калькулятор сметы</span> · <span>📦 Доставка по РФ</span>
+            </div>
+            <a href="#katya-sec-corporate" class="katya-hub-action katya-action-olive">Рассчитать стоимость партии →</a>
           </div>
 
-          <div class="katya-card">
-            <div class="katya-card-icon">✨</div>
-            <h3 class="katya-card-title">Лимитированные дропы</h3>
-            <p class="katya-card-text">Изделия выпускаются штучными сезонными коллекциями или создаются под заказ с учетом ваших цветовых пожеланий.</p>
+          <!-- 3. Архив -->
+          <div class="katya-hub-card" id="katya-sec-archive">
+            <div class="katya-hub-header">
+              <span class="katya-hub-num">03</span>
+              <span class="katya-hub-tag">Галерея</span>
+            </div>
+            <h3 class="katya-hub-title">Архив работ</h3>
+            <p class="katya-hub-desc">Коллекция уникальных штучных и проданных работ мастерской. Вдохновение для индивидуальных заказов.</p>
+            <a href="#katya-sec-archive" class="katya-hub-action">Исследовать архив →</a>
           </div>
+
+          <!-- 4. Обо мне -->
+          <div class="katya-hub-card" id="katya-sec-about">
+            <div class="katya-hub-header">
+              <span class="katya-hub-num">04</span>
+              <span class="katya-hub-tag">Мастер</span>
+            </div>
+            <h3 class="katya-hub-title">Обо мне</h3>
+            <p class="katya-hub-desc">История Кати Ланчиковой, философия slow craft, почему глина и как устроен процесс обжига при 1250°C.</p>
+            <a href="#katya-sec-about" class="katya-hub-action">История мастерской →</a>
+          </div>
+
+          <!-- 5. Контакты -->
+          <div class="katya-hub-card" id="katya-sec-contacts">
+            <div class="katya-hub-header">
+              <span class="katya-hub-num">05</span>
+              <span class="katya-hub-tag">Диалог</span>
+            </div>
+            <h3 class="katya-hub-title">Контакты</h3>
+            <p class="katya-hub-desc">Прямая связь с Катей в Telegram и WhatsApp, визит в мастерскую и персональные консультации.</p>
+            <a href="#katya-sec-contacts" class="katya-hub-action">Связаться с Катей →</a>
+          </div>
+
+          <!-- 6. Частые вопросы (FAQ) -->
+          <div class="katya-hub-card" id="katya-sec-faq">
+            <div class="katya-hub-header">
+              <span class="katya-hub-num">06</span>
+              <span class="katya-hub-tag">Помощь</span>
+            </div>
+            <h3 class="katya-hub-title">Частые вопросы</h3>
+            <p class="katya-hub-desc">Как ухаживать за керамикой, можно ли мыть в посудомойке, гарантия сохранности при доставке по почте.</p>
+            <a href="#katya-sec-faq" class="katya-hub-action">Ответы и уход →</a>
+          </div>
+
         </div>
 
-        <div class="katya-action-bar">
-          <button type="button" class="katya-primary-btn" id="katya-btn-explore">
-            Узнать об открытии дропа ↓
-          </button>
-          <div class="katya-live-status">
-            <span class="katya-status-dot"></span>
-            Блок успешно подключен через внешний файл GitHub Pages
-          </div>
+        <div class="katya-shipping-bar">
+          <span>📦</span>
+          <span><b>Правило доставки:</b> условия и расчет доставки интегрированы в чекаут оформления заказа и в форму B2B-сметы.</span>
         </div>
       </div>
     `;
 
-    // Вставляем блок сразу под верхний cover
     topBlock.insertAdjacentElement('afterend', section);
-    console.log('[Конвейер Кати] Новый авторский блок успешно создан и вставлен под верхний блок!');
-
-    // Навешиваем плавный скролл по клику на кнопку
-    var exploreBtn = document.getElementById('katya-btn-explore');
-    if (exploreBtn) {
-      exploreBtn.addEventListener('click', function() {
-        var timerBlock = document.getElementById('rec3834581901');
-        if (timerBlock) {
-          timerBlock.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-      });
-    }
+    console.log('[Конвейер Кати] Навигационный хаб и боковая панель успешно внедрены!');
   }
 
-  // Отслеживание успешной отправки форм Тильды
   function initFormHandlers() {
     document.addEventListener('tildaform:aftersuccess', function(e) {
       var form = e.target;

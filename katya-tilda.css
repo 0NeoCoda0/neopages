@@ -4,7 +4,7 @@
    Все изменения здесь моментально отражаются на живом сайте Тильды.
    ========================================================================== */
 
-/* Подключение благородной шрифтовой пары (Антиква + Гротеск) */
+/* Подключение шрифтовой пары: Cormorant Garamond (антиква) + Nunito Sans (гротеск) */
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
 
 /* 1. Глобальные переменные дизайна (Эстетика: The Magic Shop / Cord Studio) */
@@ -29,19 +29,279 @@
   --katya-transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* 2. Плавный скролл и глобальное сглаживание шрифтов */
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 3. Новый авторский блок-витрина (инжектируемый под верхний cover) */
+/* ==========================================================================
+   2. ЛЕВАЯ ПАНЕЛЬ НАВИГАЦИИ (THE MAGIC SHOP SIDEBAR STYLE)
+   ========================================================================== */
+
+/* Плавающая кнопка-триггер слева */
+.katya-sidebar-trigger-btn {
+  position: fixed;
+  left: 24px;
+  top: 24px;
+  z-index: 9999;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(245, 244, 240, 0.94);
+  backdrop-filter: blur(8px);
+  border: 1px solid var(--katya-border);
+  padding: 10px 18px;
+  border-radius: 30px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: var(--katya-transition);
+  color: var(--katya-text-dark);
+}
+
+.katya-sidebar-trigger-btn:hover {
+  background-color: var(--katya-accent-olive);
+  color: #FFFFFF;
+  border-color: var(--katya-accent-olive);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(68, 81, 62, 0.25);
+}
+
+.katya-burger-icon {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 16px;
+}
+
+.katya-burger-icon span {
+  display: block;
+  height: 2px;
+  background-color: currentColor;
+  border-radius: 2px;
+  transition: var(--katya-transition);
+}
+
+.katya-burger-text {
+  font-family: var(--katya-font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+/* Выдвижной сайдбар */
+.katya-sidebar-wrapper {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 100000;
+  visibility: hidden;
+  opacity: 0;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.katya-sidebar-wrapper.katya-active {
+  visibility: visible;
+  opacity: 1;
+}
+
+.katya-sidebar-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(31, 30, 29, 0.45);
+  backdrop-filter: blur(4px);
+}
+
+.katya-sidebar-panel {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 380px;
+  max-width: 88vw;
+  height: 100%;
+  background-color: var(--katya-bg-linen);
+  border-right: 1px solid var(--katya-border);
+  box-shadow: 10px 0 40px rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 36px 32px;
+  box-sizing: border-box;
+  transform: translateX(-100%);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow-y: auto;
+}
+
+.katya-sidebar-wrapper.katya-active .katya-sidebar-panel {
+  transform: translateX(0);
+}
+
+/* Шапка сайдбара */
+.katya-sidebar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--katya-border);
+  padding-bottom: 20px;
+  margin-bottom: 28px;
+}
+
+.katya-sidebar-brand {
+  font-family: var(--katya-font-serif);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: var(--katya-accent-olive);
+  text-transform: uppercase;
+}
+
+.katya-sidebar-close {
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: var(--katya-text-muted);
+  cursor: pointer;
+  padding: 4px;
+  line-height: 1;
+  transition: var(--katya-transition);
+}
+
+.katya-sidebar-close:hover {
+  color: var(--katya-text-dark);
+  transform: rotate(90deg);
+}
+
+/* Список навигации сайдбара */
+.katya-sidebar-nav {
+  flex-grow: 1;
+}
+
+.katya-nav-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.katya-nav-item {
+  position: relative;
+}
+
+.katya-nav-link {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: var(--katya-text-dark);
+  transition: var(--katya-transition);
+}
+
+.katya-nav-num {
+  font-family: var(--katya-font-sans);
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--katya-text-muted);
+  letter-spacing: 1px;
+}
+
+.katya-nav-title {
+  font-family: var(--katya-font-serif);
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.katya-nav-link:hover {
+  color: var(--katya-accent-olive);
+  transform: translateX(4px);
+}
+
+.katya-badge-pill {
+  font-family: var(--katya-font-sans);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  background-color: var(--katya-accent-olive);
+  color: #FFFFFF;
+  padding: 3px 8px;
+  border-radius: 12px;
+  margin-left: 6px;
+}
+
+/* Подменю Магазина (Вазы, Подсвечники, Игрушки) */
+.katya-sub-nav {
+  list-style: none;
+  padding: 10px 0 6px 32px;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.katya-sub-link {
+  font-family: var(--katya-font-sans);
+  font-size: 14px;
+  color: var(--katya-text-muted);
+  text-decoration: none;
+  transition: var(--katya-transition);
+}
+
+.katya-sub-link:hover {
+  color: var(--katya-accent-olive);
+  font-weight: 600;
+  padding-left: 4px;
+}
+
+/* Футер сайдбара */
+.katya-sidebar-footer {
+  border-top: 1px solid var(--katya-border);
+  padding-top: 20px;
+  margin-top: 24px;
+}
+
+.katya-shipping-note {
+  font-family: var(--katya-font-sans);
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--katya-text-muted);
+  background: rgba(68, 81, 62, 0.05);
+  padding: 10px 14px;
+  border-radius: var(--katya-radius-sm);
+  margin-bottom: 14px;
+}
+
+.katya-social-links {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--katya-font-sans);
+  font-size: 13px;
+}
+
+.katya-social-links a {
+  color: var(--katya-accent-olive);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   3. НАВИГАЦИОННЫЙ ХАБ НА ГЛАВНОЙ СТРАНИЦЕ (ДУБЛИРОВАНИЕ 6 РАЗДЕЛОВ)
+   ========================================================================== */
+
 .katya-showcase-section {
   background-color: var(--katya-bg-linen) !important;
   color: var(--katya-text-dark);
   font-family: var(--katya-font-sans);
-  padding: 85px 20px;
+  padding: 90px 20px;
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
@@ -50,13 +310,12 @@ html {
 }
 
 .katya-container {
-  max-width: 1160px;
+  max-width: 1200px;
   margin: 0 auto;
   text-align: center;
   box-sizing: border-box;
 }
 
-/* Бейдж студии */
 .katya-badge {
   display: inline-flex;
   align-items: center;
@@ -67,9 +326,9 @@ html {
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  padding: 6px 16px;
+  padding: 6px 18px;
   border-radius: 30px;
-  margin-bottom: 24px;
+  margin-bottom: 22px;
 }
 
 .katya-badge-dot {
@@ -79,211 +338,155 @@ html {
   background-color: var(--katya-accent-olive);
 }
 
-/* Заголовок блока (Антиква) */
 .katya-title {
   font-family: var(--katya-font-serif) !important;
-  font-size: clamp(28px, 4vw, 46px);
+  font-size: clamp(30px, 4vw, 48px);
   font-weight: 600;
   line-height: 1.15;
   color: var(--katya-text-dark);
-  margin: 0 0 18px 0;
+  margin: 0 0 16px 0;
   letter-spacing: -0.5px;
 }
 
-/* Описание блока */
 .katya-subtitle {
   font-family: var(--katya-font-sans);
   font-size: 16px;
   line-height: 1.65;
   color: var(--katya-text-muted);
-  max-width: 720px;
+  max-width: 760px;
   margin: 0 auto 50px auto;
-  font-weight: 400;
 }
 
-/* Сетка карточек преимуществ */
-.katya-grid {
+/* Сетка 6 навигационных карточек на Главной */
+.katya-hub-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 28px;
-  margin-bottom: 50px;
+  gap: 24px;
+  margin-bottom: 40px;
   text-align: left;
 }
 
-@media (max-width: 860px) {
-  .katya-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
+@media (max-width: 960px) {
+  .katya-hub-grid {
+    grid-template-columns: repeat(2, 1fr);
   }
 }
 
-/* Карточка */
-.katya-card {
+@media (max-width: 620px) {
+  .katya-hub-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Карточка раздела */
+.katya-hub-card {
   background-color: var(--katya-bg-surface);
   border: 1px solid var(--katya-border);
   border-radius: var(--katya-radius-md);
-  padding: 36px 28px;
-  transition: var(--katya-transition);
+  padding: 30px 26px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   box-shadow: var(--katya-shadow-soft);
-  position: relative;
+  transition: var(--katya-transition);
 }
 
-.katya-card:hover {
+.katya-hub-card:hover {
   transform: translateY(-5px);
   box-shadow: var(--katya-shadow-hover);
   border-color: #D1CFC7;
 }
 
-.katya-card-icon {
-  font-size: 32px;
-  margin-bottom: 18px;
-  display: inline-block;
+/* Выделение B2B карточки */
+.katya-card-highlight {
+  border: 2px solid var(--katya-accent-olive);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FAF9F5 100%);
 }
 
-.katya-card-title {
-  font-family: var(--katya-font-serif);
-  font-size: 22px;
-  font-weight: 700;
-  color: var(--katya-text-dark);
-  margin: 0 0 12px 0;
-}
-
-.katya-card-text {
-  font-size: 14px;
-  line-height: 1.6;
-  color: var(--katya-text-muted);
-  margin: 0;
-}
-
-/* Панель действий и статус */
-.katya-action-bar {
+.katya-hub-header {
   display: flex;
-  flex-direction: column;
   align-items: center;
-  gap: 16px;
+  justify-content: space-between;
+  margin-bottom: 14px;
 }
 
-/* Основная кнопка студии */
-.katya-primary-btn {
-  background-color: var(--katya-accent-olive) !important;
-  color: #FFFFFF !important;
-  font-family: var(--katya-font-sans) !important;
-  font-size: 13px !important;
-  font-weight: 700 !important;
-  letter-spacing: 1.5px !important;
-  text-transform: uppercase !important;
-  padding: 16px 36px !important;
-  border: none !important;
-  border-radius: var(--katya-radius-sm) !important;
-  cursor: pointer !important;
-  transition: var(--katya-transition) !important;
-  box-shadow: 0 4px 14px rgba(68, 81, 62, 0.25) !important;
+.katya-hub-num {
+  font-family: var(--katya-font-sans);
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--katya-text-muted);
 }
 
-.katya-primary-btn:hover {
-  background-color: var(--katya-accent-hover) !important;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(68, 81, 62, 0.35) !important;
+.katya-hub-tag {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--katya-accent-olive);
+  font-weight: 700;
 }
 
-/* Индикатор связи */
-.katya-live-status {
+.katya-hub-title {
+  font-family: var(--katya-font-serif);
+  font-size: 24px;
+  font-weight: 600;
+  color: var(--katya-text-dark);
+  margin: 0 0 10px 0;
+}
+
+.katya-hub-desc {
+  font-family: var(--katya-font-sans);
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--katya-text-muted);
+  margin: 0 0 16px 0;
+  flex-grow: 1;
+}
+
+.katya-hub-sublinks {
+  font-size: 12px;
+  color: var(--katya-accent-olive);
+  font-weight: 600;
+  margin-bottom: 18px;
+}
+
+.katya-hub-action {
+  font-family: var(--katya-font-sans);
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  text-decoration: none;
+  color: var(--katya-text-dark);
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 12px;
-  color: #5A7453;
-  background: rgba(90, 116, 83, 0.08);
-  padding: 6px 14px;
-  border-radius: 20px;
+  gap: 6px;
+  transition: var(--katya-transition);
 }
 
-.katya-status-dot {
-  width: 7px;
-  height: 7px;
-  background-color: #2ECC71;
-  border-radius: 50%;
-  box-shadow: 0 0 8px #2ECC71;
-  animation: katyaPulse 2s infinite;
+.katya-hub-action:hover {
+  color: var(--katya-accent-olive);
+  gap: 10px;
 }
 
-@keyframes katyaPulse {
-  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
-  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(46, 204, 113, 0); }
-  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
-}
-
-/* 4. Стилизация стандартных кнопок и форм Тильды под общий бренд */
-.t-btn, .t-submit {
-  border-radius: var(--katya-radius-sm) !important;
-  font-family: var(--katya-font-sans) !important;
-  letter-spacing: 1px !important;
-  transition: var(--katya-transition) !important;
-}
-
-.t-btn:hover, .t-submit:hover {
-  transform: translateY(-2px);
-}
-
-/* 5. Стилизация каталога и фильтров подразделов (Вазы / Подсвечники / Игрушки) */
-.t-store__filter-wrapper, .t-store__tabs {
-  margin: 40px auto 30px auto !important;
-  text-align: center !important;
-  font-family: var(--katya-font-sans) !important;
-}
-
-.t-store__filter-btn, .t-store__tabs__item {
-  font-family: var(--katya-font-sans) !important;
-  font-size: 14px !important;
-  font-weight: 600 !important;
-  letter-spacing: 1.5px !important;
-  text-transform: uppercase !important;
-  color: var(--katya-text-muted) !important;
-  padding: 10px 22px !important;
-  border-radius: var(--katya-radius-sm) !important;
-  transition: var(--katya-transition) !important;
-  border: 1px solid transparent !important;
-  background: transparent !important;
-}
-
-.t-store__filter-btn:hover, .t-store__tabs__item:hover {
-  color: var(--katya-accent-olive) !important;
-  border-color: var(--katya-border) !important;
-  background: #FFFFFF !important;
-}
-
-.t-store__filter-btn.t-active, .t-store__tabs__item_active {
-  color: #FFFFFF !important;
-  background-color: var(--katya-accent-olive) !important;
-  border-color: var(--katya-accent-olive) !important;
-  box-shadow: 0 4px 14px rgba(68, 81, 62, 0.2) !important;
-}
-
-/* Карточки товаров в каталоге Tilda Store */
-.t-store__card {
-  border: 1px solid var(--katya-border) !important;
-  border-radius: var(--katya-radius-md) !important;
-  overflow: hidden !important;
-  background: #FFFFFF !important;
-  transition: var(--katya-transition) !important;
-}
-
-.t-store__card:hover {
-  transform: translateY(-5px) !important;
-  box-shadow: var(--katya-shadow-hover) !important;
-}
-
-.t-store__card__title {
-  font-family: var(--katya-font-serif) !important;
-  font-size: 20px !important;
-  font-weight: 600 !important;
-  color: var(--katya-text-dark) !important;
-}
-
-.t-store__card__price-value {
-  font-family: var(--katya-font-sans) !important;
-  font-size: 16px !important;
-  font-weight: 700 !important;
+.katya-action-olive {
   color: var(--katya-accent-olive) !important;
 }
 
+/* Нижняя плашка правила доставки */
+.katya-shipping-bar {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background-color: rgba(68, 81, 62, 0.06);
+  border: 1px solid var(--katya-border);
+  padding: 12px 24px;
+  border-radius: 30px;
+  font-size: 13px;
+  color: var(--katya-text-muted);
+  margin-top: 10px;
+}
+
+.katya-shipping-bar b {
+  color: var(--katya-text-dark);
+}
