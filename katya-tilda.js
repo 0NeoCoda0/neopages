@@ -16,9 +16,20 @@
   }
 
   function init() {
+    removeArtCenterBlock();
     injectLeftSidebarNav();
     injectShowcaseBlock();
     initFormHandlers();
+  }
+
+  /**
+   * Удаление старого шаблонного блока T1016 (арт-центр, таймер)
+   */
+  function removeArtCenterBlock() {
+    var badBlocks = document.querySelectorAll('#rec3834581901, [data-record-type="1016"]');
+    badBlocks.forEach(function(el) {
+      el.remove();
+    });
   }
 
   /**
