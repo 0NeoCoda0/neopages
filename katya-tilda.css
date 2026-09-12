@@ -2063,8 +2063,21 @@ html, body {
 
 /* 640px – 959px (Tablet Portrait) */
 @media (max-width: 959px) {
+  .katya-header-nav-desktop,
+  .katya-header-shop-text-link {
+    display: none !important;
+  }
+  .katya-header-logo {
+    font-size: 19px;
+    letter-spacing: 0.4px;
+  }
   .katya-products-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 32px 20px;
+  }
+  .katya-hub-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px 24px;
   }
   .katya-story-grid {
     grid-template-columns: 1fr;
@@ -2082,8 +2095,18 @@ html, body {
 
 /* 480px – 639px (Mobile Landscape) */
 @media (max-width: 639px) {
+  .katya-header-container {
+    padding: 0 16px;
+  }
   .katya-products-grid {
     grid-template-columns: repeat(2, 1fr);
+    gap: 24px 12px;
+  }
+  .katya-hub-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
+  }
+  .katya-filter-links {
     gap: 16px;
   }
   .katya-qv-layout {
@@ -2096,39 +2119,75 @@ html, body {
   }
 }
 
-/* 320px – 479px (Mobile Small / Bottom Sheet) */
+/* 320px – 479px (Mobile Small / iPhone / Android) */
 @media (max-width: 479px) {
-  .katya-header-container {
+  .katya-container {
     padding: 0 16px;
   }
-  .katya-header-shop-link {
-    display: none;
+  .katya-header-container {
+    padding: 0 14px;
+  }
+  .katya-header-nav-desktop,
+  .katya-header-shop-text-link {
+    display: none !important;
+  }
+  .katya-header-logo {
+    font-size: 16px;
+    letter-spacing: 0.3px;
   }
   .katya-hero-section {
-    padding: 100px 16px 60px 16px;
-    min-height: 80vh;
+    padding: 90px 16px 50px 16px;
+    min-height: 75vh;
+  }
+  .katya-hero-title {
+    font-size: 32px;
+  }
+  .katya-hero-lead {
+    font-size: 14px;
+    margin-bottom: 32px;
   }
   .katya-hero-actions {
     flex-direction: column;
+    gap: 18px;
     width: 100%;
   }
-  .katya-hero-actions .katya-btn {
-    width: 100%;
+  .katya-filter-links {
+    gap: 14px 18px;
+    justify-content: center;
+  }
+  .katya-filter-link {
+    font-size: 12px;
   }
   .katya-products-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 40px;
+  }
+  .katya-product-card {
+    max-width: 320px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .katya-story-grid {
+    gap: 30px;
   }
   .katya-story-facts {
     grid-template-columns: 1fr;
     gap: 12px;
   }
   .katya-b2b-card {
-    padding: 24px 16px;
+    padding: 30px 16px;
+  }
+  .katya-calc-options {
+    flex-direction: column;
   }
   .katya-calc-chip {
     width: 100%;
     text-align: center;
+    box-sizing: border-box;
+  }
+  .katya-hub-grid {
+    grid-template-columns: 1fr;
+    gap: 24px;
   }
 
   /* Quick View как мобильный Bottom Sheet */
@@ -2152,6 +2211,7 @@ html, body {
     border-bottom: none;
     padding: 16px 18px 24px 18px;
     transform: translateY(0);
+    box-sizing: border-box;
   }
 
   .katya-drawer-panel {
