@@ -1,0 +1,68 @@
+/* ==========================================================================
+   КОНВЕЙЕР КАТИ — КАСТОМНЫЕ СТИЛИ ДЛЯ TILDA
+   Автоматически подключаемый файл стилей.
+   Любые изменения здесь моментально отражаются на сайте Тильды.
+   ========================================================================== */
+
+/* 1. Глобальные переменные дизайна (дизайн-система) */
+:root {
+  --katya-primary: #ff5c39;          /* Основной акцентный цвет */
+  --katya-primary-hover: #e04a29;    /* Цвет кнопки при наведении */
+  --katya-bg-light: #fbfbfb;         /* Фоновый светлый */
+  --katya-text-dark: #1b1b1b;        /* Основной темный текст */
+  --katya-text-muted: #737373;       /* Приглушенный текст */
+  --katya-radius-sm: 8px;            /* Радиус скругления малый */
+  --katya-radius-md: 16px;           /* Радиус карточек */
+  --katya-radius-lg: 24px;           /* Радиус крупных блоков */
+  --katya-shadow-card: 0 10px 30px rgba(0, 0, 0, 0.06);
+  --katya-shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.12);
+  --katya-transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 2. Кастомизация типографики и плавного скролла */
+html {
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* 3. Улучшение кнопок Тильды во всех блоках */
+.t-btn, .t-submit {
+  border-radius: var(--katya-radius-sm) !important;
+  transition: var(--katya-transition) !important;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+}
+
+.t-btn:hover, .t-submit:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
+}
+
+/* 4. Карточки товаров и витрина (поддомен D4) */
+.t-store__card, .t-card__col {
+  border-radius: var(--katya-radius-md) !important;
+  transition: var(--katya-transition) !important;
+  background-color: #ffffff;
+}
+
+.t-store__card:hover, .t-card__col:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--katya-shadow-hover) !important;
+}
+
+/* 5. Поля ввода и формы заявок */
+.t-input {
+  border-radius: var(--katya-radius-sm) !important;
+  border: 1px solid #e0e0e0 !important;
+  transition: var(--katya-transition) !important;
+}
+
+.t-input:focus {
+  border-color: var(--katya-primary) !important;
+  box-shadow: 0 0 0 3px rgba(255, 92, 57, 0.15) !important;
+}
+
+/* 6. Блок для стилизации конкретных страниц (пример):
+#page200072009 {
+  // Специфичные стили для магазина Shetuka
+}
+*/
