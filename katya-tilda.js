@@ -224,7 +224,7 @@
   }
 
   function removeArtCenterBlock() {
-    var badBlocks = document.querySelectorAll('#rec3834581901, [data-record-type="1016"]');
+    var badBlocks = document.querySelectorAll('#rec3834581901, [data-record-type="1016"], #katya-custom-showcase-block');
     badBlocks.forEach(function(el) {
       el.remove();
     });
