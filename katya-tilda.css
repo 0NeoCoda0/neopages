@@ -581,42 +581,84 @@ html, body {
   text-align: center;
 }
 
-.katya-filter-tabs {
-  display: flex;
-  gap: 10px;
-  justify-content: center;
-  flex-wrap: wrap;
-  margin-bottom: 48px;
+/* --- Шапка дропа и текстовая навигация (Lucy McCall & Cord Studio) --- */
+.katya-header-craft {
+  margin-bottom: 56px;
 }
 
-.katya-filter-tab {
-  background: var(--katya-bg-surface);
-  border: 1.5px solid var(--katya-border);
-  padding: 8px 20px;
-  border-radius: var(--katya-radius-pill);
-  font-size: 13px;
-  font-weight: 600;
+.katya-title-craft {
+  font-family: var(--katya-font-serif);
+  font-size: clamp(28px, 3.6vw, 42px);
+  font-weight: 400; /* Чистая благородная антиква */
+  letter-spacing: 0.5px;
   color: var(--katya-blue-deep);
+  margin: 0 0 12px 0;
+  line-height: 1.2;
+}
+
+.katya-subtitle-craft {
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(0, 31, 76, 0.72);
+  max-width: 520px;
+  margin: 0 auto 32px auto;
+  line-height: 1.6;
+}
+
+.katya-filter-links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 32px;
+  flex-wrap: wrap;
+  padding-bottom: 4px;
+}
+
+.katya-filter-link {
+  background: none;
+  border: none;
+  padding: 6px 0;
+  font-family: var(--katya-font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  color: rgba(0, 31, 76, 0.45);
   cursor: pointer;
-  transition: var(--katya-transition);
+  position: relative;
+  transition: color 0.3s ease;
 }
 
-.katya-filter-tab:hover, .katya-tab-active {
+.katya-filter-link:hover {
+  color: var(--katya-blue-deep);
+}
+
+.katya-filter-link.active {
+  color: var(--katya-blue-deep);
+  font-weight: 600;
+}
+
+.katya-filter-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1.5px;
   background-color: var(--katya-blue-deep);
-  border-color: var(--katya-blue-deep);
-  color: var(--katya-bg-cream);
 }
 
+/* --- Сетка каталога (Cord Studio & Lucy McCall) --- */
 .katya-products-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 40px;
+  gap: 52px 40px;
   text-align: left;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-/* Бесшовная арт-карточка в стиле The Magic Shop / Lucy McCall / Cord Studio */
+/* Бесшовная арт-карточка: полное отсутствие рамок и фоновых боксов */
 .katya-product-card {
   position: relative;
   display: flex;
@@ -625,7 +667,9 @@ html, body {
   border: none !important;
   border-radius: 0 !important;
   box-shadow: none !important;
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: pointer;
+  outline: none;
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .katya-product-card:hover {
@@ -637,19 +681,17 @@ html, body {
   width: 100%;
   aspect-ratio: 3 / 4;
   overflow: hidden;
-  background-color: #ede5d8; /* Теплый шамот */
-  border-radius: 4px;
-  cursor: pointer;
+  background-color: #ede5d8; /* Сырой шамот */
+  border-radius: 2px;
 }
 
 .katya-product-media img {
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: var(--katya-transition-img);
+  transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .katya-img-primary {
@@ -672,200 +714,84 @@ html, body {
   opacity: 0;
 }
 
-/* Деликатные маркеры статуса (The Magic Shop Studio) */
-.katya-product-badge-wrap {
+/* Мягкая подсказка при наведении (The Magic Shop / Cord Studio) */
+.katya-media-action-hint {
   position: absolute;
-  top: 12px;
-  left: 12px;
-  z-index: 5;
-}
-
-.katya-badge-micro {
-  background: rgba(251, 244, 232, 0.92);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(0, 31, 76, 0.08);
-  border-radius: 12px;
-  padding: 4px 10px;
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.8px;
-  text-transform: uppercase;
-  color: #151515;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  box-shadow: 0 2px 8px rgba(0, 31, 76, 0.04);
-}
-
-.katya-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.katya-dot-status {
-  background-color: #279a4b; /* In-stock зелень The Magic Shop */
-}
-
-.katya-dot-rare {
-  background-color: var(--katya-burgundy); /* Фирменный бордо Кати и Lucy McCall */
-}
-
-/* Иконка Quick View в правом верхнем углу */
-.katya-quickview-btn {
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  background: rgba(251, 244, 232, 0.92);
-  backdrop-filter: blur(6px);
-  -webkit-backdrop-filter: blur(6px);
-  border: 1px solid rgba(0, 31, 76, 0.1);
-  color: var(--katya-blue-deep);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  opacity: 0;
-  transform: scale(0.9);
-  transition: all 0.25s ease;
-  z-index: 6;
-}
-
-.katya-product-card:hover .katya-quickview-btn {
-  opacity: 1;
-  transform: scale(1);
-}
-
-.katya-quickview-btn:hover {
-  background: var(--katya-blue-deep);
-  color: #ffffff;
-  border-color: var(--katya-blue-deep);
-}
-
-/* Индикатор точек ракурсов */
-.katya-media-dots {
-  position: absolute;
-  bottom: 10px;
+  bottom: 0;
   left: 0;
   right: 0;
-  display: flex;
-  justify-content: center;
-  gap: 5px;
+  padding: 14px 10px;
+  background: linear-gradient(to top, rgba(0, 31, 76, 0.45), transparent);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: all 0.3s ease;
   pointer-events: none;
   z-index: 4;
 }
 
-.katya-media-dot {
-  width: 5px;
-  height: 5px;
-  border-radius: 50%;
-  background-color: var(--katya-blue-deep);
-  opacity: 0.25;
-  transition: opacity 0.3s ease;
+.katya-product-card:hover .katya-media-action-hint {
+  opacity: 1;
+  transform: translateY(0);
 }
 
-.katya-media-dot.active {
-  opacity: 0.75;
-}
-
-/* Информационный блок под фото (Cord Studio style) */
+/* Информационный блок: чистая типографика (Lucy McCall & Cord Studio) */
 .katya-product-info {
   padding: 16px 0 0 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  flex-grow: 1;
-}
-
-.katya-product-info-top {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-
-.katya-product-meta-row {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 11px;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
-  color: var(--katya-text-muted);
-  font-weight: 600;
-}
-
-.katya-product-sku {
-  opacity: 0.7;
+  gap: 2px;
 }
 
 .katya-product-title {
   font-family: var(--katya-font-serif);
-  font-size: 22px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 400; /* Легкая авторская антиква */
   color: var(--katya-blue-deep);
-  margin: 2px 0 2px 0;
+  margin: 0;
   line-height: 1.25;
+  letter-spacing: 0.2px;
+  transition: color 0.25s ease;
+}
+
+.katya-product-card:hover .katya-product-title {
+  color: var(--katya-burgundy);
 }
 
 .katya-product-spec {
   font-size: 12px;
-  color: rgba(0, 31, 76, 0.65);
-  margin-bottom: 8px;
+  font-weight: 300;
+  color: rgba(0, 31, 76, 0.6);
+  margin: 2px 0 4px 0;
+  letter-spacing: 0.2px;
 }
 
-.katya-product-bottom {
+.katya-product-price-row {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding-top: 10px;
-  border-top: 1px solid rgba(0, 31, 76, 0.1);
-  margin-top: auto;
-}
-
-.katya-product-price-block {
-  display: flex;
-  flex-direction: column;
-}
-
-.katya-price-label {
-  font-size: 10px;
-  color: rgba(0, 31, 76, 0.5);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  margin-top: 2px;
 }
 
 .katya-product-price {
-  font-size: 17px;
-  font-weight: 700;
+  font-family: var(--katya-font-sans);
+  font-size: 15px;
+  font-weight: 600;
   color: var(--katya-blue-deep);
+  letter-spacing: 0.3px;
 }
 
-.katya-btn-add-cart {
-  height: 36px;
-  padding: 0 16px;
-  border-radius: 4px;
-  border: 1px solid var(--katya-blue-deep);
-  color: var(--katya-blue-deep);
-  background: transparent;
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  cursor: pointer;
-  transition: var(--katya-transition);
-}
-
-.katya-btn-add-cart:hover {
-  background-color: var(--katya-blue-deep);
-  color: var(--katya-bg-cream);
+.katya-product-rare-notice {
+  font-family: var(--katya-font-serif);
+  font-style: italic;
+  font-size: 13px;
+  color: var(--katya-burgundy);
+  letter-spacing: 0.3px;
 }
 
 .katya-catalog-footer-action {

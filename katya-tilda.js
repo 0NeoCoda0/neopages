@@ -411,20 +411,19 @@
       <!-- 2. CURATED DROP (КАТАЛОГ 3:4 С HOVER SWAP) -->
       <section class="katya-drop-section" id="curated-drop">
         <div class="katya-container">
-          <div class="katya-section-header">
-            <span class="katya-badge">АКТУАЛЬНЫЙ ДРОП</span>
-            <h2 class="katya-title">Коллекция сезона: Тепло земли</h2>
-            <p class="katya-subtitle">
-              Штучные изделия ручной работы в наличии. Бережно упакуем и отправим за 24 часа.
+          <div class="katya-section-header katya-header-craft">
+            <h2 class="katya-title-craft">Коллекция: Тепло земли</h2>
+            <p class="katya-subtitle-craft">
+              Штучные изделия ручной лепки из шамота и полуфарфора. Высокотемпературный обжиг.
             </p>
 
-            <!-- Табы фильтрации -->
-            <div class="katya-filter-tabs">
-              <button type="button" class="katya-filter-tab katya-tab-active" data-cat="all">Все изделия (6)</button>
-              <button type="button" class="katya-filter-tab" data-cat="vases">Вазы</button>
-              <button type="button" class="katya-filter-tab" data-cat="candles">Подсвечники</button>
-              <button type="button" class="katya-filter-tab" data-cat="toys">Ёлочные игрушки</button>
-            </div>
+            <!-- Легкие текстовые фильтры (Cord Studio & Lucy McCall style) -->
+            <nav class="katya-filter-links" aria-label="Фильтрация коллекции">
+              <button type="button" class="katya-filter-link active" data-cat="all">Все предметы</button>
+              <button type="button" class="katya-filter-link" data-cat="vases">Вазы</button>
+              <button type="button" class="katya-filter-link" data-cat="candles">Подсвечники</button>
+              <button type="button" class="katya-filter-link" data-cat="toys">Ёлочные игрушки</button>
+            </nav>
           </div>
 
           <!-- Сетка товаров -->
@@ -685,60 +684,32 @@
   }
 
   /**
-   * Генерация HTML карточек товаров (Редизайн: Галерея медленного ремесла)
+   * Генерация HTML карточек товаров (100% галерейный стиль Lucy McCall / Cord Studio)
    */
   function renderProductCardsHtml(items) {
     return items.map(function(item) {
       var shortMaterial = item.material ? item.material.split(',')[0].trim() : 'Керамика';
       var specText = item.height ? (item.height + ' · ' + shortMaterial) : shortMaterial;
-      var isRare = item.badgeType === 'highlight' || (item.badge && item.badge.includes('1 шт')) || (item.badge && item.badge.toLowerCase().includes('штучн'));
-      var dotClass = isRare ? 'katya-dot-rare' : 'katya-dot-status';
+      var isRare = item.badge && (item.badge.includes('1 шт') || item.badge.toLowerCase().includes('штучн') || item.badgeType === 'highlight');
+      var rareNotice = isRare ? `<span class="katya-product-rare-notice">${item.badge}</span>` : '';
 
       return `
-        <article class="katya-product-card" data-category="${item.category}" data-id="${item.id}">
-          <div class="katya-product-media" data-open-quickview="${item.id}">
+        <article class="katya-product-card" data-category="${item.category}" data-id="${item.id}" data-open-quickview="${item.id}" tabindex="0" role="button" aria-label="${item.title}">
+          <div class="katya-product-media">
             <img src="${item.img1}" alt="${item.title}" class="katya-img-primary" loading="lazy"/>
-            <img src="${item.img2}" alt="${item.title} — текстура и ракурс" class="katya-img-secondary" loading="lazy"/>
+            <img src="${item.img2}" alt="${item.title} — текстура" class="katya-img-secondary" loading="lazy"/>
             
-            <div class="katya-product-badge-wrap">
-              <span class="katya-badge-micro">
-                <span class="katya-dot ${dotClass}"></span>
-                <span>${item.badge}</span>
-              </span>
-            </div>
-
-            <button type="button" class="katya-quickview-btn" data-open-quickview="${item.id}" aria-label="Быстрый просмотр" title="Быстрый просмотр детали">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
-                <circle cx="12" cy="12" r="3"/>
-              </svg>
-            </button>
-
-            <div class="katya-media-dots" aria-hidden="true">
-              <span class="katya-media-dot active"></span>
-              <span class="katya-media-dot"></span>
+            <div class="katya-media-action-hint">
+              <span>Быстрый просмотр</span>
             </div>
           </div>
 
           <div class="katya-product-info">
-            <div class="katya-product-info-top">
-              <div class="katya-product-meta-row">
-                <span class="katya-product-category">${item.categoryName}</span>
-                <span class="katya-product-sku">${item.id}</span>
-              </div>
-              <h3 class="katya-product-title">${item.title}</h3>
-              <div class="katya-product-spec">${specText}</div>
-            </div>
-
-            <div class="katya-product-bottom">
-              <div class="katya-product-price-block">
-                <span class="katya-price-label">Стоимость:</span>
-                <span class="katya-product-price">${item.price.toLocaleString('ru-RU')} ₽</span>
-              </div>
-              <button type="button" class="katya-btn-add-cart" data-add-to-cart="${item.id}" aria-label="Добавить в корзину">
-                <span class="katya-add-icon">+</span>
-                <span>В корзину</span>
-              </button>
+            <h3 class="katya-product-title">${item.title}</h3>
+            <div class="katya-product-spec">${specText}</div>
+            <div class="katya-product-price-row">
+              <span class="katya-product-price">${item.price.toLocaleString('ru-RU')} ₽</span>
+              ${rareNotice}
             </div>
           </div>
         </article>
@@ -750,12 +721,12 @@
    * Привязка событий каталога
    */
   function bindCatalogEvents() {
-    // Табы фильтрации
-    var tabs = document.querySelectorAll('.katya-filter-tab');
+    // Текстовые фильтры (Cord Studio & Lucy McCall)
+    var tabs = document.querySelectorAll('.katya-filter-link, .katya-filter-tab');
     tabs.forEach(function(tab) {
       tab.addEventListener('click', function() {
-        tabs.forEach(function(t) { t.classList.remove('katya-tab-active'); });
-        tab.classList.add('katya-tab-active');
+        tabs.forEach(function(t) { t.classList.remove('active', 'katya-tab-active'); });
+        tab.classList.add('active');
 
         var cat = tab.getAttribute('data-cat');
         var cards = document.querySelectorAll('.katya-product-card');
@@ -769,21 +740,24 @@
       });
     });
 
-    // Делегирование кликов по карточкам и корзине
+    // Делегирование кликов по карточкам: клик открывает Quick View
     var grid = document.getElementById('katya-products-grid');
     if (grid) {
       grid.addEventListener('click', function(e) {
-        var qvTrigger = e.target.closest('[data-open-quickview]');
-        if (qvTrigger && !e.target.closest('[data-add-to-cart]')) {
-          var id = qvTrigger.getAttribute('data-open-quickview');
+        var card = e.target.closest('[data-open-quickview]');
+        if (card) {
+          var id = card.getAttribute('data-open-quickview');
           openQuickViewModal(id);
-          return;
         }
-
-        var addTrigger = e.target.closest('[data-add-to-cart]');
-        if (addTrigger) {
-          var prodId = addTrigger.getAttribute('data-add-to-cart');
-          addToCart(prodId, 1);
+      });
+      grid.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          var card = e.target.closest('[data-open-quickview]');
+          if (card) {
+            e.preventDefault();
+            var id = card.getAttribute('data-open-quickview');
+            openQuickViewModal(id);
+          }
         }
       });
     }
