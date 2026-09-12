@@ -190,8 +190,8 @@
       return;
     }
 
-    var topBlock = document.getElementById('rec2112149101') || document.querySelector('.t-records > .t-rec');
-    if (!topBlock) {
+    var container = document.getElementById('allrecords') || document.querySelector('.t-records') || document.body;
+    if (!container) {
       return;
     }
 
@@ -297,7 +297,7 @@
       </div>
     `;
 
-    topBlock.insertAdjacentElement('afterend', section);
+    container.appendChild(section);
     console.log('[Конвейер Кати] Навигационный хаб и боковая панель успешно внедрены!');
   }
 
