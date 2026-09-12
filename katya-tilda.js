@@ -499,14 +499,17 @@
               <div class="katya-calc-row">
                 <div class="katya-slider-head">
                   <label class="katya-calc-label" for="b2b-qty-slider">2. Тираж партии:</label>
-                  <span class="katya-slider-value" id="b2b-qty-display">100 шт.</span>
+                  <div class="katya-slider-val-wrap">
+                    <span class="katya-discount-badge" id="b2b-discount-badge">-15% ОПТ</span>
+                    <span class="katya-slider-value" id="b2b-qty-display">100 шт.</span>
+                  </div>
                 </div>
                 <input type="range" id="b2b-qty-slider" class="katya-range-input" min="20" max="500" step="10" value="100"/>
                 <div class="katya-slider-ticks">
-                  <span>20 шт (0%)</span>
-                  <span>50 шт (-10%)</span>
-                  <span class="katya-tick-active">100 шт (-15%)</span>
-                  <span>250+ шт (-25%)</span>
+                  <span id="tick-20">20 шт (0%)</span>
+                  <span id="tick-50">50 шт (-10%)</span>
+                  <span id="tick-100" class="katya-tick-active">100 шт (-15%)</span>
+                  <span id="tick-250">250+ шт (-25%)</span>
                 </div>
               </div>
 
@@ -530,6 +533,7 @@
                 <div class="katya-summary-col">
                   <span class="katya-sm-lbl">Цена за 1 изделие:</span>
                   <span class="katya-sm-val" id="b2b-price-per-item">937 ₽</span>
+                  <div class="katya-economy-note" id="b2b-economy-note">Экономия: 16 500 ₽</div>
                 </div>
                 <div class="katya-summary-col">
                   <span class="katya-sm-lbl">Ориентировочный бюджет:</span>
@@ -760,18 +764,53 @@
     if (chkLogo) chkLogo.addEventListener('change', calculate);
     if (chkBox) chkBox.addEventListener('change', calculate);
 
+    var discountBadge = document.getElementById('b2b-discount-badge');
+    var economyNote = document.getElementById('b2b-economy-note');
+
     function calculate() {
       var qty = parseInt(slider.value, 10);
       display.textContent = qty + ' шт.';
 
       // Оптовая скидка
       var discount = 0;
+      var badgeText = '';
       if (qty >= 250) {
         discount = 0.25;
+        badgeText = '-25% ПАРТНЕР';
       } else if (qty >= 100) {
         discount = 0.15;
+        badgeText = '-15% ОПТ';
       } else if (qty >= 50) {
         discount = 0.10;
+        badgeText = '-10% БАЗА';
+      }
+
+      if (discountBadge) {
+        if (discount > 0) {
+          discountBadge.textContent = badgeText;
+          discountBadge.style.display = 'inline-flex';
+        } else {
+          discountBadge.style.display = 'none';
+        }
+      }
+
+      // Обновление активного тика
+      ['tick-20', 'tick-50', 'tick-100', 'tick-250'].forEach(function(tId) {
+        var el = document.getElementById(tId);
+        if (el) el.classList.remove('katya-tick-active');
+      });
+      if (qty >= 250) {
+        var el250 = document.getElementById('tick-250');
+        if (el250) el250.classList.add('katya-tick-active');
+      } else if (qty >= 100) {
+        var el100 = document.getElementById('tick-100');
+        if (el100) el100.classList.add('katya-tick-active');
+      } else if (qty >= 50) {
+        var el50 = document.getElementById('tick-50');
+        if (el50) el50.classList.add('katya-tick-active');
+      } else {
+        var el20 = document.getElementById('tick-20');
+        if (el20) el20.classList.add('katya-tick-active');
       }
 
       var discountedBase = currentBase * (1 - discount);
@@ -782,8 +821,20 @@
       var finalPerItem = Math.round(discountedBase + extra);
       var total = finalPerItem * qty;
 
+      var withoutDiscountTotal = Math.round((currentBase + extra) * qty);
+      var economy = withoutDiscountTotal - total;
+
       pricePerItem.textContent = finalPerItem.toLocaleString('ru-RU') + ' ₽';
       totalBudget.textContent = total.toLocaleString('ru-RU') + ' ₽';
+
+      if (economyNote) {
+        if (economy > 0) {
+          economyNote.textContent = 'Экономия: ' + economy.toLocaleString('ru-RU') + ' ₽';
+          economyNote.style.display = 'block';
+        } else {
+          economyNote.style.display = 'none';
+        }
+      }
     }
 
     calculate();
@@ -801,6 +852,7 @@
     modal.innerHTML = `
       <div class="katya-modal-overlay" id="katya-qv-overlay"></div>
       <div class="katya-modal-card">
+        <div class="katya-sheet-handle"></div>
         <button type="button" class="katya-modal-close" id="katya-qv-close" aria-label="Закрыть окно">✕</button>
         <div class="katya-modal-body" id="katya-qv-body"></div>
       </div>
@@ -983,82 +1035,99 @@
 
     body.innerHTML = `
       <div class="katya-cart-content">
-        <!-- Список товаров -->
-        <div class="katya-cart-items-list">
-          ${cart.map(function(item) {
-            return `
-              <div class="katya-cart-item-row" data-id="${item.id}">
-                <img src="${item.img}" alt="${item.title}" class="katya-cart-thumb"/>
-                <div class="katya-cart-item-info">
-                  <h4 class="katya-cart-item-title">${item.title}</h4>
-                  <span class="katya-cart-item-price">${item.price.toLocaleString('ru-RU')} ₽</span>
-                  <div class="katya-cart-item-qty-ctrl">
-                    <button type="button" class="katya-qty-btn-minus" data-id="${item.id}">-</button>
-                    <span>${item.qty}</span>
-                    <button type="button" class="katya-qty-btn-plus" data-id="${item.id}">+</button>
+        <div class="katya-cart-scroll-area">
+          <!-- Список товаров -->
+          <div class="katya-cart-items-list">
+            ${cart.map(function(item) {
+              return `
+                <div class="katya-cart-item-row" data-id="${item.id}">
+                  <img src="${item.img}" alt="${item.title}" class="katya-cart-thumb"/>
+                  <div class="katya-cart-item-info">
+                    <h4 class="katya-cart-item-title">${item.title}</h4>
+                    <span class="katya-cart-item-price">${item.price.toLocaleString('ru-RU')} ₽</span>
+                    <div class="katya-cart-item-qty-ctrl">
+                      <button type="button" class="katya-qty-btn-minus" data-id="${item.id}" aria-label="Уменьшить">-</button>
+                      <span>${item.qty}</span>
+                      <button type="button" class="katya-qty-btn-plus" data-id="${item.id}" aria-label="Увеличить">+</button>
+                    </div>
                   </div>
+                  <button type="button" class="katya-cart-item-remove" data-remove="${item.id}" aria-label="Удалить товар">✕</button>
                 </div>
-                <button type="button" class="katya-cart-item-remove" data-remove="${item.id}" aria-label="Удалить товар">✕</button>
-              </div>
-            `;
-          }).join('')}
-        </div>
+              `;
+            }).join('')}
+          </div>
 
-        <!-- Шаг 1: Выбор способа доставки -->
-        <div class="katya-cart-step-box">
-          <h4 class="katya-step-title">ШАГ 1. СПОСОБ ДОСТАВКИ:</h4>
-          <div class="katya-delivery-options">
-            <label class="katya-delivery-opt">
-              <input type="radio" name="cart-delivery" value="350" checked/>
-              <span>СДЭК до пункта выдачи (ПВЗ) — 350 ₽</span>
-            </label>
-            <label class="katya-delivery-opt">
-              <input type="radio" name="cart-delivery" value="550"/>
-              <span>Курьер СДЭК до двери — 550 ₽</span>
-            </label>
-            <label class="katya-delivery-opt">
-              <input type="radio" name="cart-delivery" value="420"/>
-              <span>Почта России (1 класс) — 420 ₽</span>
-            </label>
-            <label class="katya-delivery-opt">
-              <input type="radio" name="cart-delivery" value="0"/>
-              <span>Самовывоз из мастерской (Москва) — Бесплатно</span>
-            </label>
+          <!-- Шаг 1: Выбор способа доставки (Radio Tiles) -->
+          <div class="katya-cart-step-box">
+            <h4 class="katya-step-title">ШАГ 1. ВЫБЕРИТЕ СПОСОБ ДОСТАВКИ:</h4>
+            <div class="katya-delivery-options">
+              <label class="katya-delivery-card active">
+                <div class="katya-delivery-card-left">
+                  <input type="radio" name="cart-delivery" value="350" checked/>
+                  <span>📦 СДЭК до пункта выдачи (ПВЗ)</span>
+                </div>
+                <span class="katya-delivery-price">350 ₽</span>
+              </label>
+
+              <label class="katya-delivery-card">
+                <div class="katya-delivery-card-left">
+                  <input type="radio" name="cart-delivery" value="550"/>
+                  <span>🚪 Курьер СДЭК до двери</span>
+                </div>
+                <span class="katya-delivery-price">550 ₽</span>
+              </label>
+
+              <label class="katya-delivery-card">
+                <div class="katya-delivery-card-left">
+                  <input type="radio" name="cart-delivery" value="420"/>
+                  <span>✉️ Почта России (1 класс)</span>
+                </div>
+                <span class="katya-delivery-price">420 ₽</span>
+              </label>
+
+              <label class="katya-delivery-card">
+                <div class="katya-delivery-card-left">
+                  <input type="radio" name="cart-delivery" value="0"/>
+                  <span>🏠 Самовывоз из мастерской (Москва)</span>
+                </div>
+                <span class="katya-delivery-price">0 ₽</span>
+              </label>
+            </div>
+          </div>
+
+          <!-- Шаг 2: Данные получателя (Быстрый ввод с Autocomplete) -->
+          <div class="katya-cart-step-box">
+            <h4 class="katya-step-title">ШАГ 2. ДАННЫЕ ПОЛУЧАТЕЛЯ:</h4>
+            <div class="katya-checkout-fields">
+              <input type="text" id="order-name" class="katya-input" placeholder="Ваше имя *" autocomplete="name" autocorrect="off" required/>
+              <input type="tel" id="order-phone" class="katya-input" placeholder="Телефон / Telegram @username *" autocomplete="tel" inputmode="tel" required/>
+              <input type="text" id="order-address" class="katya-input" placeholder="Город и адрес ПВЗ СДЭК *" autocomplete="street-address" required/>
+              <textarea id="order-notes" class="katya-input" rows="2" placeholder="Комментарий (подарочная открытка, пожелания к посылке)"></textarea>
+            </div>
           </div>
         </div>
 
-        <!-- Шаг 2: Данные получателя (Без регистрации) -->
-        <div class="katya-cart-step-box">
-          <h4 class="katya-step-title">ШАГ 2. ДАННЫЕ ПОКУПАТЕЛЯ:</h4>
-          <div class="katya-checkout-fields">
-            <input type="text" id="order-name" class="katya-input" placeholder="Ваше имя *" required/>
-            <input type="tel" id="order-phone" class="katya-input" placeholder="Телефон / Telegram @username *" required/>
-            <input type="text" id="order-address" class="katya-input" placeholder="Город и адрес ПВЗ СДЭК *" required/>
-            <textarea id="order-notes" class="katya-input" rows="2" placeholder="Комментарий (подарочная упаковка и др.)"></textarea>
-          </div>
-        </div>
-
-        <!-- Итог и кнопка -->
-        <div class="katya-cart-total-box">
+        <!-- Sticky Footer (Прижатый низ с итогом и кнопкой) -->
+        <div class="katya-drawer-footer">
           <div class="katya-total-row">
-            <span>Товары:</span>
+            <span>Товары (${cart.reduce(function(a,b){return a+b.qty;},0)} шт):</span>
             <span id="cart-subtotal">${itemsTotal.toLocaleString('ru-RU')} ₽</span>
           </div>
           <div class="katya-total-row">
             <span>Доставка:</span>
-            <span id="cart-delivery-display">${deliveryCost} ₽</span>
+            <span id="cart-delivery-display">350 ₽</span>
           </div>
           <div class="katya-total-row katya-total-final">
-            <span>ИТОГО:</span>
+            <span>ИТОГО К ОПЛАТЕ:</span>
             <span id="cart-final-total">${(itemsTotal + deliveryCost).toLocaleString('ru-RU')} ₽</span>
           </div>
 
           <button type="button" class="katya-btn katya-btn-accent katya-submit-order-btn" id="katya-submit-order">
-            Оформить заказ (Оплата после связи)
+            Оформить заказ (Оплата после подтверждения)
           </button>
 
           <p class="katya-order-microcopy">
-            Заявка сразу поступит мастеру Кате. Мы свяжемся с вами в Telegram за 15 минут для подтверждения.
+            Заявка сразу поступит мастеру Кате. Мы свяжемся с вами в Telegram за 15 минут.
           </p>
         </div>
       </div>
@@ -1069,8 +1138,15 @@
     deliveryRadios.forEach(function(radio) {
       radio.addEventListener('change', function() {
         deliveryCost = parseInt(radio.value, 10);
-        document.getElementById('cart-delivery-display').textContent = deliveryCost > 0 ? deliveryCost + ' ₽' : 'Бесплатно';
+        document.getElementById('cart-delivery-display').textContent = deliveryCost > 0 ? deliveryCost + ' ₽' : '0 ₽';
         document.getElementById('cart-final-total').textContent = (itemsTotal + deliveryCost).toLocaleString('ru-RU') + ' ₽';
+        
+        // Подсветка активной карточки доставки
+        body.querySelectorAll('.katya-delivery-card').forEach(function(card) {
+          card.classList.remove('active');
+        });
+        var parentCard = radio.closest('.katya-delivery-card');
+        if (parentCard) parentCard.classList.add('active');
       });
     });
 
