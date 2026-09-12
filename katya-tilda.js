@@ -606,24 +606,42 @@
         </div>
       </section>
 
-      <!-- 6. ГАРАНТИИ БЕРЕЖНОЙ ДОСТАВКИ -->
+      <!-- 6. ГАРАНТИИ БЕРЕЖНОЙ ДОСТАВКИ (СВЕЖИЙ ВЕКТОРНЫЙ ДИЗАЙН) -->
       <section class="katya-guarantees-section">
         <div class="katya-container">
           <div class="katya-guarantees-grid">
             <div class="katya-guarantee-card">
-              <div class="katya-g-icon">📦</div>
-              <h4 class="katya-g-title">Тройная эко-защита</h4>
-              <p class="katya-g-desc">Каждый предмет упаковывается в сотовую крафт-бумагу, персональный бокс и усиленную коробку.</p>
+              <div class="katya-g-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
+                  <path d="m3.3 7 8.7 5 8.7-5"/>
+                  <path d="M12 22V12"/>
+                </svg>
+              </div>
+              <h4 class="katya-g-title">Тройная крафт-защита</h4>
+              <p class="katya-g-desc">Сотовая эко-бумага, индивидуальный брендированный бокс и усиленный транспортировочный короб.</p>
             </div>
             <div class="katya-guarantee-card">
-              <div class="katya-g-icon">🛡️</div>
+              <div class="katya-g-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
+                  <path d="m9 12 2 2 4-4"/>
+                </svg>
+              </div>
               <h4 class="katya-g-title">100% страховка боя</h4>
-              <p class="katya-g-desc">Если изделие повредится при доставке, мы бесплатно изготовим замену или вернем деньги в день обращения.</p>
+              <p class="katya-g-desc">Если изделие повредится при доставке, мы бесплатно повторим работу или вернем деньги в день обращения.</p>
             </div>
             <div class="katya-guarantee-card">
-              <div class="katya-g-icon">🚚</div>
-              <h4 class="katya-g-title">Быстрая отправка по РФ</h4>
-              <p class="katya-g-desc">СДЭК до двери/ПВЗ и Почта 1 класса за 2–4 дня. Бесплатная доставка заказов от 8 000 ₽.</p>
+              <div class="katya-g-icon">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <rect width="16" height="13" x="1" y="6" rx="2"/>
+                  <path d="M16 8h4l3 3v5h-7V8z"/>
+                  <circle cx="5.5" cy="18.5" r="2.5"/>
+                  <circle cx="18.5" cy="18.5" r="2.5"/>
+                </svg>
+              </div>
+              <h4 class="katya-g-title">Бережная отправка по РФ</h4>
+              <p class="katya-g-desc">СДЭК до двери/ПВЗ и Почта 1 класса за 2–4 дня. Персональный трек-номер прямо в Telegram.</p>
             </div>
           </div>
         </div>
@@ -667,24 +685,60 @@
   }
 
   /**
-   * Генерация HTML карточек товаров
+   * Генерация HTML карточек товаров (Редизайн: Галерея медленного ремесла)
    */
   function renderProductCardsHtml(items) {
     return items.map(function(item) {
+      var shortMaterial = item.material ? item.material.split(',')[0].trim() : 'Керамика';
+      var specText = item.height ? (item.height + ' · ' + shortMaterial) : shortMaterial;
+      var isRare = item.badgeType === 'highlight' || (item.badge && item.badge.includes('1 шт')) || (item.badge && item.badge.toLowerCase().includes('штучн'));
+      var dotClass = isRare ? 'katya-dot-rare' : 'katya-dot-status';
+
       return `
         <article class="katya-product-card" data-category="${item.category}" data-id="${item.id}">
           <div class="katya-product-media" data-open-quickview="${item.id}">
             <img src="${item.img1}" alt="${item.title}" class="katya-img-primary" loading="lazy"/>
-            <img src="${item.img2}" alt="${item.title} вблизи" class="katya-img-secondary" loading="lazy"/>
-            <span class="katya-product-badge katya-badge-${item.badgeType}">${item.badge}</span>
-            <button type="button" class="katya-quickview-btn" data-open-quickview="${item.id}" aria-label="Быстрый просмотр">Быстрый просмотр</button>
+            <img src="${item.img2}" alt="${item.title} — текстура и ракурс" class="katya-img-secondary" loading="lazy"/>
+            
+            <div class="katya-product-badge-wrap">
+              <span class="katya-badge-micro">
+                <span class="katya-dot ${dotClass}"></span>
+                <span>${item.badge}</span>
+              </span>
+            </div>
+
+            <button type="button" class="katya-quickview-btn" data-open-quickview="${item.id}" aria-label="Быстрый просмотр" title="Быстрый просмотр детали">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+
+            <div class="katya-media-dots" aria-hidden="true">
+              <span class="katya-media-dot active"></span>
+              <span class="katya-media-dot"></span>
+            </div>
           </div>
+
           <div class="katya-product-info">
-            <span class="katya-product-category">${item.categoryName}</span>
-            <h3 class="katya-product-title">${item.title}</h3>
-            <span class="katya-product-price">${item.price.toLocaleString('ru-RU')} ₽</span>
-            <div class="katya-product-actions">
-              <button type="button" class="katya-btn-add-cart" data-add-to-cart="${item.id}">В корзину</button>
+            <div class="katya-product-info-top">
+              <div class="katya-product-meta-row">
+                <span class="katya-product-category">${item.categoryName}</span>
+                <span class="katya-product-sku">${item.id}</span>
+              </div>
+              <h3 class="katya-product-title">${item.title}</h3>
+              <div class="katya-product-spec">${specText}</div>
+            </div>
+
+            <div class="katya-product-bottom">
+              <div class="katya-product-price-block">
+                <span class="katya-price-label">Стоимость:</span>
+                <span class="katya-product-price">${item.price.toLocaleString('ru-RU')} ₽</span>
+              </div>
+              <button type="button" class="katya-btn-add-cart" data-add-to-cart="${item.id}" aria-label="Добавить в корзину">
+                <span class="katya-add-icon">+</span>
+                <span>В корзину</span>
+              </button>
             </div>
           </div>
         </article>
