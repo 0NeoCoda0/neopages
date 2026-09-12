@@ -43,10 +43,10 @@
       price: 2800,
       badge: 'Штучный экземпляр',
       badgeType: 'highlight',
-      img1: 'https://images.unsplash.com/photo-1607344645866-009c320c5ab8?q=80&w=800&auto=format&fit=crop',
+      img1: 'https://images.unsplash.com/photo-1603006905003-be475563bc59?q=80&w=800&auto=format&fit=crop',
       img2: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=800&auto=format&fit=crop',
       gallery: [
-        'https://images.unsplash.com/photo-1607344645866-009c320c5ab8?q=80&w=800&auto=format&fit=crop',
+        'https://images.unsplash.com/photo-1603006905003-be475563bc59?q=80&w=800&auto=format&fit=crop',
         'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?q=80&w=800&auto=format&fit=crop'
       ],
       desc: 'Скульптурный держатель для конической свечи. Игра теней на матовой поверхности создает медитативную атмосферу уюта в полумраке.',
