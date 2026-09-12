@@ -123,7 +123,7 @@
       price: 3100,
       badge: 'В наличии (1 шт)',
       badgeType: 'new',
-      img1: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=800&auto=format&fit=crop',
+      img1: 'https://images.unsplash.com/photo-1603006905393-c3513a968bb0?q=80&w=800&auto=format&fit=crop',
       img2: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?q=80&w=800&auto=format&fit=crop',
       gallery: [
         'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?q=80&w=800&auto=format&fit=crop',
@@ -241,17 +241,26 @@
     header.className = 'katya-sticky-header';
     header.innerHTML = `
       <div class="katya-header-container">
-        <button type="button" class="katya-header-menu-btn" id="katya-header-menu-trigger" aria-label="Открыть меню">
-          <span class="katya-burger-icon"><span></span><span></span></span>
-          <span class="katya-burger-label">МЕНЮ</span>
-        </button>
+        <div class="katya-header-left">
+          <button type="button" class="katya-header-burger-minimal" id="katya-header-menu-trigger" aria-label="Открыть меню">
+            <span></span>
+            <span></span>
+          </button>
+          <nav class="katya-header-nav-desktop" aria-label="Основное меню">
+            <a href="/" class="katya-header-nav-link active">Главная</a>
+            <a href="/shop" class="katya-header-nav-link">Коллекция</a>
+            <a href="/about" class="katya-header-nav-link">О мастере</a>
+            <a href="/corporate" class="katya-header-nav-link">B2B</a>
+            <a href="/contacts" class="katya-header-nav-link">Контакты</a>
+          </nav>
+        </div>
 
         <a href="/" class="katya-header-logo">КАТЯ ЛАНЧИКОВА</a>
 
         <div class="katya-header-right">
-          <a href="/shop" class="katya-header-shop-link">Магазин</a>
-          <button type="button" class="katya-header-cart-btn" id="katya-header-cart-trigger" aria-label="Корзина">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <a href="/shop" class="katya-header-shop-text-link">Магазин</a>
+          <button type="button" class="katya-header-cart-btn-minimal" id="katya-header-cart-trigger" aria-label="Корзина">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
               <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <path d="M16 10a4 4 0 0 1-8 0"></path>
@@ -265,15 +274,21 @@
     document.body.prepend(header);
 
     // События клика
-    document.getElementById('katya-header-menu-trigger').addEventListener('click', function() {
-      var wrapper = document.getElementById('katya-sidebar-wrapper');
-      if (wrapper) {
-        wrapper.classList.add('katya-active');
-        document.body.style.overflow = 'hidden';
-      }
-    });
+    var menuBtn = document.getElementById('katya-header-menu-trigger');
+    if (menuBtn) {
+      menuBtn.addEventListener('click', function() {
+        var wrapper = document.getElementById('katya-sidebar-wrapper');
+        if (wrapper) {
+          wrapper.classList.add('katya-active');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    }
 
-    document.getElementById('katya-header-cart-trigger').addEventListener('click', openCartDrawer);
+    var cartBtn = document.getElementById('katya-header-cart-trigger');
+    if (cartBtn) {
+      cartBtn.addEventListener('click', openCartDrawer);
+    }
   }
 
   /**
@@ -391,15 +406,15 @@
       <section class="katya-hero-section">
         <div class="katya-hero-overlay"></div>
         <div class="katya-hero-content">
-          <div class="katya-hero-badge">✦ АВТОРСКАЯ КЕРАМИКА РУЧНОЙ РАБОТЫ ✦</div>
+          <div class="katya-hero-badge">Авторская керамика ручной работы</div>
           <h1 class="katya-hero-title">Сказка внутри каждого предмета</h1>
           <p class="katya-hero-lead">
             Живые формы, рожденные из шамотной глины, воды и огня.<br/>
             Высокотемпературный обжиг при 1250°C. Вещи, хранящие тепло человеческих рук.
           </p>
           <div class="katya-hero-actions">
-            <a href="#curated-drop" class="katya-btn katya-btn-primary">Смотреть дроп ↓</a>
-            <a href="/about" class="katya-btn katya-btn-ghost">О мастере →</a>
+            <a href="#curated-drop" class="katya-hero-link-primary">Смотреть коллекцию ↓</a>
+            <a href="/about" class="katya-hero-link-secondary">История мастера →</a>
           </div>
         </div>
         <div class="katya-hero-scroll-hint">

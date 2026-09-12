@@ -167,130 +167,160 @@ html, body {
   top: 0;
   left: 0;
   width: 100%;
-  height: 64px;
+  height: 68px;
   z-index: 1000;
-  background: rgba(251, 244, 232, 0.92);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid var(--katya-border);
+  background: rgba(251, 244, 232, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(0, 31, 76, 0.08);
   box-sizing: border-box;
+  transition: all 0.3s ease;
 }
 
 .katya-header-container {
   max-width: 1280px;
   margin: 0 auto;
   height: 100%;
-  padding: 0 24px;
+  padding: 0 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
 
-.katya-header-menu-btn {
-  background: none;
-  border: 1.5px solid var(--katya-blue-deep);
-  padding: 6px 14px;
-  border-radius: var(--katya-radius-pill);
+.katya-header-left {
   display: flex;
   align-items: center;
-  gap: 8px;
+  gap: 28px;
+  flex: 1;
+}
+
+/* Деликатный бургер Lucy McCall */
+.katya-header-burger-minimal {
+  background: none;
+  border: none;
+  padding: 6px;
   cursor: pointer;
-  color: var(--katya-blue-deep);
-  transition: var(--katya-transition);
-}
-
-.katya-header-menu-btn:hover {
-  background-color: var(--katya-blue-deep);
-  color: var(--katya-bg-cream);
-}
-
-.katya-burger-icon {
   display: flex;
   flex-direction: column;
-  gap: 4px;
-  width: 14px;
+  gap: 5px;
+  width: 24px;
+  color: var(--katya-blue-deep);
+  transition: opacity 0.2s ease;
 }
 
-.katya-burger-icon span {
+.katya-header-burger-minimal:hover {
+  opacity: 0.7;
+}
+
+.katya-header-burger-minimal span {
   display: block;
-  height: 2px;
+  width: 18px;
+  height: 1.5px;
   background-color: currentColor;
-  border-radius: 2px;
+  transition: transform 0.2s ease;
 }
 
-.katya-burger-label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 1.5px;
+/* Открытые текстовые ссылки (Lucy McCall style) */
+.katya-header-nav-desktop {
+  display: flex;
+  align-items: center;
+  gap: 22px;
 }
 
+.katya-header-nav-link {
+  font-family: var(--katya-font-serif);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+  color: rgba(0, 31, 76, 0.75);
+  text-decoration: none;
+  transition: color 0.25s ease;
+  position: relative;
+}
+
+.katya-header-nav-link:hover,
+.katya-header-nav-link.active {
+  color: var(--katya-blue-deep);
+}
+
+.katya-header-nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background-color: var(--katya-blue-deep);
+}
+
+/* Центрированный логотип Lucy McCall */
 .katya-header-logo {
   font-family: var(--katya-font-serif);
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 3px;
+  font-size: 23px;
+  font-weight: 400;
+  letter-spacing: 0.6px;
   text-decoration: none;
   color: var(--katya-blue-deep);
-  transition: var(--katya-transition);
+  text-align: center;
+  white-space: nowrap;
+  transition: opacity 0.25s ease;
 }
 
 .katya-header-logo:hover {
-  color: var(--katya-burgundy);
+  opacity: 0.75;
 }
 
 .katya-header-right {
   display: flex;
   align-items: center;
-  gap: 18px;
+  justify-content: flex-end;
+  gap: 20px;
+  flex: 1;
 }
 
-.katya-header-shop-link {
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: var(--katya-blue-deep);
+.katya-header-shop-text-link {
+  font-family: var(--katya-font-serif);
+  font-size: 15px;
+  font-weight: 400;
+  letter-spacing: 0.4px;
+  color: rgba(0, 31, 76, 0.75);
   text-decoration: none;
-  transition: var(--katya-transition);
+  transition: color 0.25s ease;
 }
 
-.katya-header-shop-link:hover {
-  color: var(--katya-burgundy);
+.katya-header-shop-text-link:hover {
+  color: var(--katya-blue-deep);
 }
 
-.katya-header-cart-btn {
+/* Минималистичная корзина */
+.katya-header-cart-btn-minimal {
   position: relative;
   background: none;
-  border: 1.5px solid var(--katya-border);
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
+  border: none;
+  padding: 6px;
+  cursor: pointer;
+  color: var(--katya-blue-deep);
   display: flex;
   align-items: center;
   justify-content: center;
-  cursor: pointer;
-  color: var(--katya-blue-deep);
-  transition: var(--katya-transition);
+  transition: opacity 0.2s ease;
 }
 
-.katya-header-cart-btn:hover {
-  border-color: var(--katya-blue-deep);
-  background: var(--katya-blue-deep);
-  color: var(--katya-bg-cream);
+.katya-header-cart-btn-minimal:hover {
+  opacity: 0.7;
 }
 
 .katya-cart-count-badge {
   position: absolute;
-  top: -4px;
-  right: -4px;
+  top: 0;
+  right: -2px;
   background-color: var(--katya-burgundy);
   color: #FFFFFF;
-  font-size: 10px;
-  font-weight: 700;
-  min-width: 18px;
-  height: 18px;
-  padding: 0 4px;
-  border-radius: 9px;
+  font-size: 9px;
+  font-weight: 600;
+  min-width: 15px;
+  height: 15px;
+  border-radius: 50%;
   display: none;
   align-items: center;
   justify-content: center;
@@ -510,37 +540,83 @@ html, body {
 }
 
 .katya-hero-badge {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 3px;
+  font-family: var(--katya-font-sans);
+  font-size: 12px;
+  font-weight: 400;
+  letter-spacing: 2px;
   text-transform: uppercase;
   color: var(--katya-burgundy);
-  margin-bottom: 20px;
+  margin-bottom: 24px;
 }
 
 .katya-hero-title {
   font-family: var(--katya-font-serif);
-  font-size: clamp(38px, 6vw, 68px);
-  font-weight: 600;
-  line-height: 1.1;
+  font-size: clamp(36px, 5.5vw, 62px);
+  font-weight: 400; /* Благородная антиква */
+  line-height: 1.15;
   color: var(--katya-blue-deep);
   margin: 0 0 24px 0;
-  letter-spacing: -1px;
+  letter-spacing: 0.3px;
 }
 
 .katya-hero-lead {
-  font-size: clamp(16px, 2vw, 20px);
-  line-height: 1.6;
-  color: var(--katya-text-muted);
-  margin: 0 auto 40px auto;
-  max-width: 680px;
+  font-size: clamp(15px, 1.6vw, 18px);
+  font-weight: 300;
+  line-height: 1.7;
+  color: rgba(0, 31, 76, 0.72);
+  margin: 0 auto 44px auto;
+  max-width: 620px;
 }
 
 .katya-hero-actions {
   display: flex;
-  gap: 16px;
+  gap: 36px;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
+}
+
+.katya-hero-link-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--katya-font-sans);
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--katya-blue-deep);
+  text-decoration: none;
+  padding-bottom: 4px;
+  border-bottom: 1.5px solid var(--katya-blue-deep);
+  transition: all 0.25s ease;
+}
+
+.katya-hero-link-primary:hover {
+  color: var(--katya-burgundy);
+  border-bottom-color: var(--katya-burgundy);
+  transform: translateY(-1px);
+}
+
+.katya-hero-link-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--katya-font-sans);
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: rgba(0, 31, 76, 0.65);
+  text-decoration: none;
+  padding-bottom: 4px;
+  border-bottom: 1px solid transparent;
+  transition: all 0.25s ease;
+}
+
+.katya-hero-link-secondary:hover {
+  color: var(--katya-blue-deep);
+  border-bottom-color: rgba(0, 31, 76, 0.3);
 }
 
 .katya-hero-scroll-hint {
@@ -803,26 +879,26 @@ html, body {
    ========================================================================== */
 
 .katya-story-section {
-  padding: 90px 0;
-  background-color: var(--katya-bg-surface);
-  border-top: 1.5px solid var(--katya-border);
-  border-bottom: 1.5px solid var(--katya-border);
+  padding: 110px 0;
+  background-color: transparent;
+  border-top: 1px solid rgba(0, 31, 76, 0.08);
+  border-bottom: 1px solid rgba(0, 31, 76, 0.08);
 }
 
 .katya-story-grid {
   display: grid;
-  grid-template-columns: 1fr 1.2fr;
-  gap: 60px;
+  grid-template-columns: 1fr 1.15fr;
+  gap: 70px;
   align-items: center;
 }
 
 .katya-story-img-wrap {
   position: relative;
   aspect-ratio: 3 / 4;
-  border-radius: var(--katya-radius);
+  border-radius: 2px;
   overflow: hidden;
-  border: 1.5px solid var(--katya-border);
-  background-color: #EFE7DA;
+  border: none;
+  background-color: #EDE5D8;
 }
 
 .katya-story-img {
@@ -892,22 +968,26 @@ html, body {
 }
 
 .katya-b2b-card {
-  background: var(--katya-bg-surface);
-  border: 1.5px solid var(--katya-border);
-  border-radius: var(--katya-radius);
-  padding: 48px;
-  box-shadow: var(--katya-shadow-soft);
+  background: transparent;
+  border: 1px solid rgba(0, 31, 76, 0.1);
+  border-radius: 2px;
+  padding: 56px 40px;
+  box-shadow: none;
   text-align: center;
 }
 
 .katya-b2b-title {
-  font-size: clamp(28px, 4vw, 40px);
+  font-family: var(--katya-font-serif);
+  font-weight: 400;
+  font-size: clamp(28px, 3.8vw, 42px);
+  letter-spacing: 0.3px;
 }
 
 .katya-b2b-badge {
   font-size: 11px;
-  font-weight: 700;
+  font-weight: 400;
   letter-spacing: 2px;
+  text-transform: uppercase;
   color: var(--katya-burgundy);
   margin-bottom: 14px;
 }
@@ -924,10 +1004,11 @@ html, body {
 
 .katya-calc-label {
   display: block;
-  font-size: 14px;
-  font-weight: 700;
+  font-size: 13px;
+  font-weight: 600;
   color: var(--katya-blue-deep);
   margin-bottom: 12px;
+  letter-spacing: 0.3px;
 }
 
 .katya-calc-options {
@@ -937,12 +1018,12 @@ html, body {
 }
 
 .katya-calc-chip {
-  background: var(--katya-bg-cream);
-  border: 1.5px solid var(--katya-border);
-  padding: 10px 18px;
-  border-radius: var(--katya-radius);
+  background: transparent;
+  border: 1px solid rgba(0, 31, 76, 0.2);
+  padding: 9px 18px;
+  border-radius: 2px;
   font-size: 13px;
-  font-weight: 600;
+  font-weight: 400;
   color: var(--katya-blue-deep);
   cursor: pointer;
   transition: var(--katya-transition);
@@ -1061,10 +1142,10 @@ html, body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  background: var(--katya-bg-cream);
-  border: 1px solid var(--katya-border);
-  padding: 20px;
-  border-radius: var(--katya-radius);
+  background: rgba(0, 31, 76, 0.03);
+  border: 1px solid rgba(0, 31, 76, 0.08);
+  padding: 24px;
+  border-radius: 2px;
   margin-top: 30px;
 }
 
@@ -1078,7 +1159,7 @@ html, body {
 .katya-sm-val {
   font-family: var(--katya-font-serif);
   font-size: 22px;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--katya-blue-deep);
 }
 
@@ -1098,42 +1179,43 @@ html, body {
   text-align: center;
 }
 
-/* 5. НАВИГАЦИОННЫЙ ХАБ-ВИДЖЕТ */
+/* 5. НАВИГАЦИОННЫЙ ХАБ-ВИДЖЕТ (EDITORIAL СТИЛЬ) */
 .katya-showcase-section {
-  padding: 90px 0;
-  background: var(--katya-bg-surface);
-  border-top: 1.5px solid var(--katya-border);
-  border-bottom: 1.5px solid var(--katya-border);
+  padding: 110px 0;
+  background: transparent;
+  border-top: 1px solid rgba(0, 31, 76, 0.08);
+  border-bottom: 1px solid rgba(0, 31, 76, 0.08);
   text-align: center;
 }
 
 .katya-hub-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
-  margin-top: 48px;
+  gap: 48px 36px;
+  margin-top: 56px;
   text-align: left;
 }
 
 .katya-hub-card {
-  background: var(--katya-bg-cream);
-  border: 1.5px solid var(--katya-border);
-  border-radius: var(--katya-radius);
-  padding: 30px 24px;
+  background: transparent;
+  border: none;
+  border-top: 1px solid rgba(0, 31, 76, 0.15);
+  border-radius: 0;
+  padding: 24px 0 0 0;
   transition: var(--katya-transition);
   display: flex;
   flex-direction: column;
 }
 
 .katya-hub-card:hover {
-  border-color: var(--katya-blue-deep);
-  transform: translateY(-4px);
-  box-shadow: var(--katya-shadow-soft);
+  border-top-color: var(--katya-blue-deep);
+  transform: translateY(-2px);
+  box-shadow: none;
 }
 
 .katya-card-highlight {
-  border-color: var(--katya-blue-deep);
-  background: #FFFFFF;
+  border-top-color: var(--katya-burgundy);
+  background: transparent;
 }
 
 .katya-hub-header {
@@ -1170,7 +1252,8 @@ html, body {
 .katya-hub-title {
   font-family: var(--katya-font-serif);
   font-size: 22px;
-  font-weight: 600;
+  font-weight: 400;
+  letter-spacing: 0.2px;
   color: var(--katya-blue-deep);
   margin: 0 0 10px 0;
 }
