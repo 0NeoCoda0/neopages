@@ -215,9 +215,14 @@
     injectQuickViewModal();
     injectCartDrawer();
 
-    // Проверяем текущий путь: если Главная (/) — монтируем полный Шоурум
+    // Проверяем текущий путь:
     var path = window.location.pathname;
-    if (path === '/' || path === '' || path === '/index.html' || path.includes('cleverly-clumsy-panda')) {
+    var hash = window.location.hash;
+    var isB2B = path.includes('corporate') || path.includes('b2b') || hash === '#b2b' || path.includes('239981309');
+
+    if (isB2B) {
+      mountB2BLanding();
+    } else if (path === '/' || path === '' || path === '/index.html' || path.includes('cleverly-clumsy-panda')) {
       mountFullShowroomLanding();
     }
     updateCartCounter();
@@ -231,7 +236,7 @@
   }
 
   /**
-   * Сквозной Sticky Header
+   * Сквозной Sticky Header (Lucy McCall / Hallmark Style)
    */
   function injectStickyHeader() {
     if (document.getElementById('katya-sticky-header')) return;
@@ -243,8 +248,8 @@
       <div class="katya-header-container">
         <div class="katya-header-left">
           <button type="button" class="katya-header-burger-minimal" id="katya-header-menu-trigger" aria-label="Открыть меню">
-            <span></span>
-            <span></span>
+            <span class="burger-bar"></span>
+            <span class="burger-bar"></span>
           </button>
           <nav class="katya-header-nav-desktop" aria-label="Основное меню">
             <a href="/" class="katya-header-nav-link active">Главная</a>
@@ -260,7 +265,7 @@
         <div class="katya-header-right">
           <a href="/shop" class="katya-header-shop-text-link">Магазин</a>
           <button type="button" class="katya-header-cart-btn-minimal" id="katya-header-cart-trigger" aria-label="Корзина">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"></path>
               <line x1="3" y1="6" x2="21" y2="6"></line>
               <path d="M16 10a4 4 0 0 1-8 0"></path>
@@ -292,7 +297,7 @@
   }
 
   /**
-   * Левая навигационная панель (The Magic Shop style)
+   * Левая навигационная панель (Lucy McCall editorial drawer)
    */
   function injectLeftSidebarNav() {
     if (document.getElementById('katya-sidebar-wrapper')) return;
@@ -305,7 +310,7 @@
       <div class="katya-sidebar-overlay" id="katya-sidebar-overlay"></div>
       <aside class="katya-sidebar-panel" aria-label="Боковая навигация">
         <div class="katya-sidebar-header">
-          <a href="/" class="katya-sidebar-brand">✦ КАТЯ ЛАНЧИКОВА ✦</a>
+          <a href="/" class="katya-sidebar-brand">КАТЯ ЛАНЧИКОВА</a>
           <button type="button" class="katya-sidebar-close" id="katya-sidebar-close" aria-label="Закрыть меню">✕</button>
         </div>
 
@@ -313,50 +318,50 @@
           <ul class="katya-nav-list">
             <li class="katya-nav-item">
               <a href="/" class="katya-nav-link">
-                <span class="katya-nav-num">00</span>
+                <span class="katya-nav-num">01</span>
                 <span class="katya-nav-title">Главная</span>
               </a>
             </li>
             <li class="katya-nav-item katya-has-sub">
               <a href="/shop" class="katya-nav-link">
-                <span class="katya-nav-num">01</span>
-                <span class="katya-nav-title">Магазин</span>
+                <span class="katya-nav-num">02</span>
+                <span class="katya-nav-title">Магазин керамики</span>
               </a>
               <ul class="katya-sub-nav">
-                <li><a href="/shop#vases" class="katya-sub-link">🏺 Вазы</a></li>
-                <li><a href="/shop#candles" class="katya-sub-link">🕯️ Подсвечники</a></li>
-                <li><a href="/shop#toys" class="katya-sub-link">🎄 Керамические ёлочные игрушки</a></li>
+                <li><a href="/shop#vases" class="katya-sub-link">Вазы и сосуды</a></li>
+                <li><a href="/shop#candles" class="katya-sub-link">Подсвечники</a></li>
+                <li><a href="/shop#toys" class="katya-sub-link">Ёлочные украшения</a></li>
               </ul>
             </li>
             <li class="katya-nav-item">
               <a href="/corporate" class="katya-nav-link">
-                <span class="katya-nav-num">02</span>
-                <span class="katya-nav-title">Корпоративные заказы</span>
+                <span class="katya-nav-num">03</span>
+                <span class="katya-nav-title">Корпоративные тиражи</span>
                 <span class="katya-badge-pill">B2B</span>
               </a>
             </li>
             <li class="katya-nav-item">
               <a href="/archive" class="katya-nav-link">
-                <span class="katya-nav-num">03</span>
+                <span class="katya-nav-num">04</span>
                 <span class="katya-nav-title">Архив работ</span>
               </a>
             </li>
             <li class="katya-nav-item">
               <a href="/about" class="katya-nav-link">
-                <span class="katya-nav-num">04</span>
-                <span class="katya-nav-title">О мастере</span>
+                <span class="katya-nav-num">05</span>
+                <span class="katya-nav-title">О мастере и технике</span>
               </a>
             </li>
             <li class="katya-nav-item">
               <a href="/contacts" class="katya-nav-link">
-                <span class="katya-nav-num">05</span>
+                <span class="katya-nav-num">06</span>
                 <span class="katya-nav-title">Контакты</span>
               </a>
             </li>
             <li class="katya-nav-item">
               <a href="/faq" class="katya-nav-link">
-                <span class="katya-nav-num">06</span>
-                <span class="katya-nav-title">Частые вопросы</span>
+                <span class="katya-nav-num">07</span>
+                <span class="katya-nav-title">Вопросы и доставка</span>
               </a>
             </li>
           </ul>
@@ -364,12 +369,12 @@
 
         <div class="katya-sidebar-footer">
           <div class="katya-shipping-note">
-            📦 <b>Бережная доставка:</b> СДЭК и Почта по всей РФ. 100% гарантия целостности посылок.
+            <b>Бережная отправка:</b> СДЭК и Почта по РФ. Гарантия сохранности каждого изделия.
           </div>
           <div class="katya-social-links">
             <a href="https://t.me/katya_ceramics" target="_blank" rel="noopener">Telegram</a>
-            <span>·</span>
-            <a href="https://wa.me/" target="_blank" rel="noopener">WhatsApp</a>
+            <span>—</span>
+            <a href="mailto:info@katyaceramics.ru">info@katyaceramics.ru</a>
           </div>
         </div>
       </aside>
@@ -486,141 +491,7 @@
         </div>
       </section>
 
-      <!-- 4. ИНТЕРАКТИВНЫЙ B2B-КАЛЬКУЛЯТОР ДЛЯ КОМПАНИЙ -->
-      <section class="katya-b2b-calc-section">
-        <div class="katya-container">
-          <div class="katya-b2b-card">
-            <div class="katya-b2b-badge">КОРПОРАТИВНЫЕ ПОДАРКИ</div>
-            <h2 class="katya-title katya-b2b-title">Подарки со смыслом для брендов и команд</h2>
-            <p class="katya-subtitle">
-              Ёлочные игрушки, посуда и подсвечники с оттиском вашего логотипа прямо на глине.<br/>
-              Тиражи от 20 до 500+ шт. Безналичный расчет, официальный договор и ЭДО.
-            </p>
-
-            <div class="katya-calc-wrapper">
-              <!-- Тип изделия -->
-              <div class="katya-calc-row">
-                <label class="katya-calc-label">1. Выберите тип подарка:</label>
-                <div class="katya-calc-options" id="katya-calc-items">
-                  <button type="button" class="katya-calc-chip katya-chip-active" data-item="toys" data-base="750">Ёлочные игрушки (от 750 ₽)</button>
-                  <button type="button" class="katya-calc-chip" data-item="candles" data-base="1400">Сеты подсвечников (от 1 400 ₽)</button>
-                  <button type="button" class="katya-calc-chip" data-item="cups" data-base="1100">Чайные чашки (от 1 100 ₽)</button>
-                  <button type="button" class="katya-calc-chip" data-item="vases" data-base="4500">Интерьерные вазы (от 4 500 ₽)</button>
-                </div>
-              </div>
-
-              <!-- Тираж (Range Slider) -->
-              <div class="katya-calc-row">
-                <div class="katya-slider-head">
-                  <label class="katya-calc-label" for="b2b-qty-slider">2. Тираж партии:</label>
-                  <div class="katya-slider-val-wrap">
-                    <span class="katya-discount-badge" id="b2b-discount-badge">-15% ОПТ</span>
-                    <span class="katya-slider-value" id="b2b-qty-display">100 шт.</span>
-                  </div>
-                </div>
-                <input type="range" id="b2b-qty-slider" class="katya-range-input" min="20" max="500" step="10" value="100"/>
-                <div class="katya-slider-ticks">
-                  <span id="tick-20">20 шт (0%)</span>
-                  <span id="tick-50">50 шт (-10%)</span>
-                  <span id="tick-100" class="katya-tick-active">100 шт (-15%)</span>
-                  <span id="tick-250">250+ шт (-25%)</span>
-                </div>
-              </div>
-
-              <!-- Опции брендирования -->
-              <div class="katya-calc-row">
-                <label class="katya-calc-label">3. Дополнительные опции:</label>
-                <div class="katya-calc-checkboxes">
-                  <label class="katya-chk-label">
-                    <input type="checkbox" id="chk-logo" checked/>
-                    <span>Тиснение штампа логотипа компании на глине (+120 ₽/шт)</span>
-                  </label>
-                  <label class="katya-chk-label">
-                    <input type="checkbox" id="chk-box" checked/>
-                    <span>Индивидуальный крафт-бокс с наполнителем (+180 ₽/шт)</span>
-                  </label>
-                </div>
-              </div>
-
-              <!-- Табло сметы -->
-              <div class="katya-calc-summary">
-                <div class="katya-summary-col">
-                  <span class="katya-sm-lbl">Цена за 1 изделие:</span>
-                  <span class="katya-sm-val" id="b2b-price-per-item">937 ₽</span>
-                  <div class="katya-economy-note" id="b2b-economy-note">Экономия: 16 500 ₽</div>
-                </div>
-                <div class="katya-summary-col">
-                  <span class="katya-sm-lbl">Ориентировочный бюджет:</span>
-                  <span class="katya-sm-val katya-sm-accent" id="b2b-total-budget">93 750 ₽</span>
-                </div>
-                <div class="katya-summary-col">
-                  <span class="katya-sm-lbl">Срок производства:</span>
-                  <span class="katya-sm-val">14–18 рабочих дней</span>
-                </div>
-              </div>
-
-              <div class="katya-calc-action">
-                <a href="/corporate" class="katya-btn katya-btn-accent">Перейти к оформлению сметы и образца →</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 5. НАВИГАЦИОННЫЙ ХАБ-ВИДЖЕТ (6 КАРТОЧЕК) -->
-      <section class="katya-showcase-section">
-        <div class="katya-container">
-          <span class="katya-badge">РАЗДЕЛЫ СТУДИИ</span>
-          <h2 class="katya-title">Исследуйте мастерскую Кати</h2>
-          <p class="katya-subtitle">Выберите интересующее вас направление для перехода в специализированный раздел:</p>
-
-          <div class="katya-hub-grid">
-            <div class="katya-hub-card">
-              <div class="katya-hub-header"><span class="katya-hub-num">01</span><span class="katya-hub-tag">Каталог</span></div>
-              <h3 class="katya-hub-title">Магазин</h3>
-              <p class="katya-hub-desc">Розничные коллекции: вазы, подсвечники и ёлочные украшения с быстрой отправкой.</p>
-              <a href="/shop" class="katya-hub-action">Смотреть витрину →</a>
-            </div>
-
-            <div class="katya-hub-card katya-card-highlight">
-              <div class="katya-hub-header"><span class="katya-hub-num">02</span><span class="katya-badge-pill">B2B</span></div>
-              <h3 class="katya-hub-title">Корпоративные заказы</h3>
-              <p class="katya-hub-desc">Сувениры и подарки от 20 шт. с вашим логотипом, калькулятором сметы и договором.</p>
-              <a href="/corporate" class="katya-hub-action katya-action-olive">Рассчитать партию →</a>
-            </div>
-
-            <div class="katya-hub-card">
-              <div class="katya-hub-header"><span class="katya-hub-num">03</span><span class="katya-hub-tag">Портфолио</span></div>
-              <h3 class="katya-hub-title">Архив работ</h3>
-              <p class="katya-hub-desc">Уникальные проданные выставочные шедевры и галерея вдохновения для предзаказа.</p>
-              <a href="/archive" class="katya-hub-action">Смотреть архив →</a>
-            </div>
-
-            <div class="katya-hub-card">
-              <div class="katya-hub-header"><span class="katya-hub-num">04</span><span class="katya-hub-tag">Автор</span></div>
-              <h3 class="katya-hub-title">О мастере</h3>
-              <p class="katya-hub-desc">История Кати Ланчиковой, философия slow craft и фоторепортаж из мастерской.</p>
-              <a href="/about" class="katya-hub-action">Читать историю →</a>
-            </div>
-
-            <div class="katya-hub-card">
-              <div class="katya-hub-header"><span class="katya-hub-num">05</span><span class="katya-hub-tag">Связь</span></div>
-              <h3 class="katya-hub-title">Контакты</h3>
-              <p class="katya-hub-desc">Адрес мастерской в Москве, самовывоз и прямые диалоги в Telegram и WhatsApp.</p>
-              <a href="/contacts" class="katya-hub-action">Связаться →</a>
-            </div>
-
-            <div class="katya-hub-card">
-              <div class="katya-hub-header"><span class="katya-hub-num">06</span><span class="katya-hub-tag">Помощь</span></div>
-              <h3 class="katya-hub-title">Частые вопросы</h3>
-              <p class="katya-hub-desc">Как мыть авторскую керамику, гарантии целостности упаковки и условия доставки.</p>
-              <a href="/faq" class="katya-hub-action">Узнать детали →</a>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- 6. ГАРАНТИИ БЕРЕЖНОЙ ДОСТАВКИ (СВЕЖИЙ ВЕКТОРНЫЙ ДИЗАЙН) -->
+      <!-- 4. ГАРАНТИИ БЕРЕЖНОЙ ДОСТАВКИ (СВЕЖИЙ ВЕКТОРНЫЙ ДИЗАЙН) -->
       <section class="katya-guarantees-section">
         <div class="katya-container">
           <div class="katya-guarantees-grid">
@@ -695,6 +566,203 @@
     `;
 
     bindCatalogEvents();
+  }
+
+  /**
+   * Монтирование выделенной страницы B2B / Корпоративные заказы (/corporate)
+   */
+  function mountB2BLanding() {
+    var target = document.getElementById('allrecords') || document.querySelector('.t-records') || document.body;
+    if (!target) return;
+
+    var container = document.getElementById('katya-b2b-root');
+    if (!container) {
+      container = document.createElement('div');
+      container.id = 'katya-b2b-root';
+      container.className = 'katya-b2b-root';
+      target.appendChild(container);
+    }
+
+    container.innerHTML = `
+      <!-- 1. B2B HERO SECTION -->
+      <section class="katya-hero-section katya-b2b-hero" style="min-height: 520px; padding: 120px 24px 60px 24px;">
+        <div class="katya-hero-overlay"></div>
+        <div class="katya-hero-content">
+          <div class="katya-hero-badge">КОРПОРАТИВНЫЕ ЗАКАЗЫ И ТИРАЖИ</div>
+          <h1 class="katya-hero-title">Подарки со смыслом для брендов и команд</h1>
+          <p class="katya-hero-lead">
+            Ёлочные игрушки, подсвечники, чашки и вазы ручной работы с тиснением вашего логотипа прямо на глине.<br/>
+            Тиражи от 20 до 500+ шт. Официальный договор, безналичный расчет и ЭДО (Диадок).
+          </p>
+          <div class="katya-hero-actions">
+            <a href="#b2b-calculator" class="katya-hero-link-primary">Рассчитать стоимость партии ↓</a>
+            <a href="https://t.me/katya_ceramics" target="_blank" rel="noopener" class="katya-hero-link-secondary">Написать в Telegram →</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. ИНТЕРАКТИВНЫЙ B2B-КАЛЬКУЛЯТОР ДЛЯ КОМПАНИЙ -->
+      <section class="katya-b2b-calc-section" id="b2b-calculator">
+        <div class="katya-container">
+          <div class="katya-b2b-card">
+            <div class="katya-b2b-badge">ОНЛАЙН-КАЛЬКУЛЯТОР ТИРАЖА</div>
+            <h2 class="katya-title katya-b2b-title">Конструктор корпоративной сметы</h2>
+            <p class="katya-subtitle">
+              Выберите тип изделия и укажите тираж, чтобы мгновенно увидеть базовую оптовую скидку и ориентировочный бюджет:
+            </p>
+
+            <div class="katya-calc-wrapper">
+              <!-- Тип изделия -->
+              <div class="katya-calc-row">
+                <label class="katya-calc-label">1. Выберите тип подарка:</label>
+                <div class="katya-calc-options" id="katya-calc-items">
+                  <button type="button" class="katya-calc-chip katya-chip-active" data-item="toys" data-base="750">Ёлочные игрушки (от 750 ₽)</button>
+                  <button type="button" class="katya-calc-chip" data-item="candles" data-base="1400">Сеты подсвечников (от 1 400 ₽)</button>
+                  <button type="button" class="katya-calc-chip" data-item="cups" data-base="1100">Чайные чашки (от 1 100 ₽)</button>
+                  <button type="button" class="katya-calc-chip" data-item="vases" data-base="4500">Интерьерные вазы (от 4 500 ₽)</button>
+                </div>
+              </div>
+
+              <!-- Тираж (Range Slider) -->
+              <div class="katya-calc-row">
+                <div class="katya-slider-head">
+                  <label class="katya-calc-label" for="b2b-qty-slider">2. Тираж партии:</label>
+                  <div class="katya-slider-val-wrap">
+                    <span class="katya-discount-badge" id="b2b-discount-badge">-15% ОПТ</span>
+                    <span class="katya-slider-value" id="b2b-qty-display">100 шт.</span>
+                  </div>
+                </div>
+                <input type="range" id="b2b-qty-slider" class="katya-range-input" min="20" max="500" step="10" value="100"/>
+                <div class="katya-slider-ticks">
+                  <span id="tick-20">20 шт (0%)</span>
+                  <span id="tick-50">50 шт (-10%)</span>
+                  <span id="tick-100" class="katya-tick-active">100 шт (-15%)</span>
+                  <span id="tick-250">250+ шт (-25%)</span>
+                </div>
+              </div>
+
+              <!-- Опции брендирования -->
+              <div class="katya-calc-row">
+                <label class="katya-calc-label">3. Дополнительные опции:</label>
+                <div class="katya-calc-checkboxes">
+                  <label class="katya-chk-label">
+                    <input type="checkbox" id="chk-logo" checked/>
+                    <span>Тиснение штампа логотипа компании на глине (+120 ₽/шт)</span>
+                  </label>
+                  <label class="katya-chk-label">
+                    <input type="checkbox" id="chk-box" checked/>
+                    <span>Индивидуальный крафт-бокс с наполнителем (+180 ₽/шт)</span>
+                  </label>
+                </div>
+              </div>
+
+              <!-- Табло сметы -->
+              <div class="katya-calc-summary">
+                <div class="katya-summary-col">
+                  <span class="katya-sm-lbl">Цена за 1 изделие:</span>
+                  <span class="katya-sm-val" id="b2b-price-per-item">937 ₽</span>
+                  <div class="katya-economy-note" id="b2b-economy-note">Экономия: 16 500 ₽</div>
+                </div>
+                <div class="katya-summary-col">
+                  <span class="katya-sm-lbl">Ориентировочный бюджет:</span>
+                  <span class="katya-sm-val katya-sm-accent" id="b2b-total-budget">93 750 ₽</span>
+                </div>
+                <div class="katya-summary-col">
+                  <span class="katya-sm-lbl">Срок производства:</span>
+                  <span class="katya-sm-val">14–18 рабочих дней</span>
+                </div>
+              </div>
+
+              <div class="katya-calc-action">
+                <a href="https://t.me/katya_ceramics" target="_blank" rel="noopener" class="katya-btn katya-btn-accent">Запросить пилотный образец и КП в Telegram →</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. ЭТАПЫ РАБОТЫ С БИЗНЕСОМ -->
+      <section class="katya-story-section">
+        <div class="katya-container">
+          <div class="katya-section-header katya-header-craft">
+            <h2 class="katya-title-craft">Как мы работаем с компаниями</h2>
+            <p class="katya-subtitle-craft">Прозрачный процесс от первого эскиза до бережной доставки в офис:</p>
+          </div>
+
+          <div class="katya-guarantees-grid">
+            <div class="katya-guarantee-card">
+              <div class="katya-g-icon">
+                <span style="font-family: var(--katya-font-serif); font-size: 20px; font-weight: 700;">01</span>
+              </div>
+              <h4 class="katya-g-title">Концепт и форма</h4>
+              <p class="katya-g-desc">Подбираем предмет из коллекции или создаем форму под специфику вашего бренда и бюджет.</p>
+            </div>
+            <div class="katya-guarantee-card">
+              <div class="katya-g-icon">
+                <span style="font-family: var(--katya-font-serif); font-size: 20px; font-weight: 700;">02</span>
+              </div>
+              <h4 class="katya-g-title">Пилотный образец</h4>
+              <p class="katya-g-desc">Изготавливаем клише логотипа, лепим и обжигаем 1 экземпляр для живого утверждения в руках.</p>
+            </div>
+            <div class="katya-guarantee-card">
+              <div class="katya-g-icon">
+                <span style="font-family: var(--katya-font-serif); font-size: 20px; font-weight: 700;">03</span>
+              </div>
+              <h4 class="katya-g-title">Ручная формовка</h4>
+              <p class="katya-g-desc">Бережная ручная лепка всей партии, естественная сушка и высокотемпературный обжиг 1250°C.</p>
+            </div>
+            <div class="katya-guarantee-card">
+              <div class="katya-g-icon">
+                <span style="font-family: var(--katya-font-serif); font-size: 20px; font-weight: 700;">04</span>
+              </div>
+              <h4 class="katya-g-title">Упаковка и ЭДО</h4>
+              <p class="katya-g-desc">Индивидуальные крафт-коробки, маркировка, закрывающие документы (УПД) и доставка курьером.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4. ГАРАНТИИ И ДОГОВОР -->
+      <section class="katya-guarantees-section">
+        <div class="katya-container">
+          <div class="katya-guarantees-grid">
+            <div class="katya-guarantee-card">
+              <h4 class="katya-g-title">Безналичный расчет и ЭДО</h4>
+              <p class="katya-g-desc">Работаем по официальному договору, счету и обмениваемся закрывающими актами через Диадок.</p>
+            </div>
+            <div class="katya-guarantee-card">
+              <h4 class="katya-g-title">100% страховка партии</h4>
+              <p class="katya-g-desc">Каждое изделие бережно упаковано в эко-бумагу. Бесплатная замена при форс-мажоре при доставке.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. FOOTER -->
+      <footer class="katya-footer">
+        <div class="katya-container katya-footer-container">
+          <div class="katya-footer-brand">
+            <div class="katya-footer-logo">КАТЯ ЛАНЧИКОВА</div>
+            <p class="katya-footer-desc">Авторская керамика ручной работы. Студия в Москве.</p>
+          </div>
+          <div class="katya-footer-links">
+            <h5 class="katya-footer-title">Навигация</h5>
+            <ul>
+              <li><a href="/">Главная витрина</a></li>
+              <li><a href="/shop">Магазин</a></li>
+              <li><a href="/about">О мастере</a></li>
+              <li><a href="/contacts">Контакты</a></li>
+            </ul>
+          </div>
+        </div>
+        <div class="katya-footer-bottom">
+          <div class="katya-container">
+            <span>© 2026 Студия Кати Ланчиковой. Корпоративный отдел B2B.</span>
+          </div>
+        </div>
+      </footer>
+    `;
+
     bindB2BCalculatorEvents();
   }
 
@@ -951,21 +1019,21 @@
 
           <div class="katya-qv-actions">
             <div class="katya-qty-picker">
-              <button type="button" id="qv-qty-minus">-</button>
+              <button type="button" id="qv-qty-minus">−</button>
               <span id="qv-qty-val">1</span>
               <button type="button" id="qv-qty-plus">+</button>
             </div>
-            <button type="button" class="katya-btn katya-btn-accent katya-qv-add-btn" id="qv-submit-add">Добавить в корзину</button>
+            <button type="button" class="katya-btn katya-btn-primary katya-qv-add-btn" id="qv-submit-add">Добавить в корзину</button>
           </div>
 
           <div class="katya-qv-telegram-quick">
             <a href="https://t.me/katya_ceramics?text=${encodeURIComponent('Здравствуйте, Катя! Хочу заказать изделие ' + product.title + ' (' + product.id + ')')}" target="_blank" rel="noopener" class="katya-btn-telegram-quick">
-              💬 Купить в 1 клик через Telegram
+              Написать мастеру в Telegram
             </a>
           </div>
 
           <div class="katya-qv-shipping-info">
-            🚚 Доставка СДЭК по РФ от 350 ₽ (2–4 дня) • 100% гарантия целостности посылки.
+            Бережная отправка СДЭК и Почтой по всей РФ. 100% гарантия целостности посылки.
           </div>
         </div>
       </div>
@@ -1056,15 +1124,15 @@
     if (cart.length === 0) {
       body.innerHTML = `
         <div class="katya-cart-empty">
-          <div class="katya-empty-icon">🏺</div>
-          <h4 class="katya-empty-title">Ваша корзина пуста</h4>
-          <p class="katya-empty-desc">Выберите понравившиеся изделия из каталога или актуального дропа.</p>
-          <a href="#curated-drop" class="katya-btn katya-btn-primary" id="katya-empty-to-shop">Смотреть изделия</a>
+          <div class="katya-empty-rule"></div>
+          <h4 class="katya-empty-title">Корзина пуста</h4>
+          <p class="katya-empty-desc">В вашей корзине пока нет предметов. Выберите изделие ручной работы из актуального каталога.</p>
+          <a href="/shop" class="katya-btn katya-btn-primary" id="katya-empty-to-shop">Перейти в каталог</a>
         </div>
       `;
       var toShopBtn = document.getElementById('katya-empty-to-shop');
       if (toShopBtn) {
-        toShopBtn.addEventListener('click', function() {
+        toShopBtn.addEventListener('click', function(e) {
           var drawer = document.getElementById('katya-cart-drawer');
           if (drawer) drawer.classList.remove('katya-drawer-active');
           document.body.style.overflow = '';
@@ -1089,25 +1157,29 @@
                     <h4 class="katya-cart-item-title">${item.title}</h4>
                     <span class="katya-cart-item-price">${item.price.toLocaleString('ru-RU')} ₽</span>
                     <div class="katya-cart-item-qty-ctrl">
-                      <button type="button" class="katya-qty-btn-minus" data-id="${item.id}" aria-label="Уменьшить">-</button>
-                      <span>${item.qty}</span>
+                      <button type="button" class="katya-qty-btn-minus" data-id="${item.id}" aria-label="Уменьшить">−</button>
+                      <span class="katya-qty-number">${item.qty}</span>
                       <button type="button" class="katya-qty-btn-plus" data-id="${item.id}" aria-label="Увеличить">+</button>
                     </div>
                   </div>
-                  <button type="button" class="katya-cart-item-remove" data-remove="${item.id}" aria-label="Удалить товар">✕</button>
+                  <button type="button" class="katya-cart-item-remove" data-remove="${item.id}" aria-label="Удалить позицию">✕</button>
                 </div>
               `;
             }).join('')}
           </div>
 
-          <!-- Шаг 1: Выбор способа доставки (Radio Tiles) -->
+          <!-- Шаг 1: Выбор способа доставки (Minimalist Tiles) -->
           <div class="katya-cart-step-box">
-            <h4 class="katya-step-title">ШАГ 1. ВЫБЕРИТЕ СПОСОБ ДОСТАВКИ:</h4>
+            <span class="katya-step-label">Шаг 1 из 2</span>
+            <h4 class="katya-step-title">Способ получения</h4>
             <div class="katya-delivery-options">
               <label class="katya-delivery-card active">
                 <div class="katya-delivery-card-left">
                   <input type="radio" name="cart-delivery" value="350" checked/>
-                  <span>📦 СДЭК до пункта выдачи (ПВЗ)</span>
+                  <div class="katya-delivery-text-wrap">
+                    <span class="katya-delivery-name">СДЭК до пункта выдачи (ПВЗ)</span>
+                    <span class="katya-delivery-meta">2–4 рабочих дня по России</span>
+                  </div>
                 </div>
                 <span class="katya-delivery-price">350 ₽</span>
               </label>
@@ -1115,7 +1187,10 @@
               <label class="katya-delivery-card">
                 <div class="katya-delivery-card-left">
                   <input type="radio" name="cart-delivery" value="550"/>
-                  <span>🚪 Курьер СДЭК до двери</span>
+                  <div class="katya-delivery-text-wrap">
+                    <span class="katya-delivery-name">Курьерская доставка СДЭК</span>
+                    <span class="katya-delivery-meta">До двери лично в руки</span>
+                  </div>
                 </div>
                 <span class="katya-delivery-price">550 ₽</span>
               </label>
@@ -1123,7 +1198,10 @@
               <label class="katya-delivery-card">
                 <div class="katya-delivery-card-left">
                   <input type="radio" name="cart-delivery" value="420"/>
-                  <span>✉️ Почта России (1 класс)</span>
+                  <div class="katya-delivery-text-wrap">
+                    <span class="katya-delivery-name">Почта России (1 класс)</span>
+                    <span class="katya-delivery-meta">Авиа-отправка в отдаленные регионы</span>
+                  </div>
                 </div>
                 <span class="katya-delivery-price">420 ₽</span>
               </label>
@@ -1131,21 +1209,37 @@
               <label class="katya-delivery-card">
                 <div class="katya-delivery-card-left">
                   <input type="radio" name="cart-delivery" value="0"/>
-                  <span>🏠 Самовывоз из мастерской (Москва)</span>
+                  <div class="katya-delivery-text-wrap">
+                    <span class="katya-delivery-name">Самовывоз из мастерской</span>
+                    <span class="katya-delivery-meta">Москва, по предварительной договоренности</span>
+                  </div>
                 </div>
-                <span class="katya-delivery-price">0 ₽</span>
+                <span class="katya-delivery-price">Бесплатно</span>
               </label>
             </div>
           </div>
 
-          <!-- Шаг 2: Данные получателя (Быстрый ввод с Autocomplete) -->
+          <!-- Шаг 2: Данные получателя (Refined Editorial Inputs) -->
           <div class="katya-cart-step-box">
-            <h4 class="katya-step-title">ШАГ 2. ДАННЫЕ ПОЛУЧАТЕЛЯ:</h4>
+            <span class="katya-step-label">Шаг 2 из 2</span>
+            <h4 class="katya-step-title">Контактные данные</h4>
             <div class="katya-checkout-fields">
-              <input type="text" id="order-name" class="katya-input" placeholder="Ваше имя *" autocomplete="name" autocorrect="off" required/>
-              <input type="tel" id="order-phone" class="katya-input" placeholder="Телефон / Telegram @username *" autocomplete="tel" inputmode="tel" required/>
-              <input type="text" id="order-address" class="katya-input" placeholder="Город и адрес ПВЗ СДЭК *" autocomplete="street-address" required/>
-              <textarea id="order-notes" class="katya-input" rows="2" placeholder="Комментарий (подарочная открытка, пожелания к посылке)"></textarea>
+              <div class="katya-field-group">
+                <label for="order-name" class="katya-field-label">Ваше имя *</label>
+                <input type="text" id="order-name" class="katya-input" placeholder="Иван Петров" autocomplete="name" autocorrect="off" required/>
+              </div>
+              <div class="katya-field-group">
+                <label for="order-phone" class="katya-field-label">Телефон или Telegram *</label>
+                <input type="tel" id="order-phone" class="katya-input" placeholder="+7 999 000-00-00 или @username" autocomplete="tel" inputmode="tel" required/>
+              </div>
+              <div class="katya-field-group">
+                <label for="order-address" class="katya-field-label">Город и адрес ПВЗ СДЭК *</label>
+                <input type="text" id="order-address" class="katya-input" placeholder="г. Москва, ул. Ленина, д. 5, ПВЗ MSK12" autocomplete="street-address" required/>
+              </div>
+              <div class="katya-field-group">
+                <label for="order-notes" class="katya-field-label">Пожелания к заказу</label>
+                <textarea id="order-notes" class="katya-input katya-textarea" rows="2" placeholder="Подарочная упаковка, открытка или особые пожелания"></textarea>
+              </div>
             </div>
           </div>
         </div>
@@ -1153,7 +1247,7 @@
         <!-- Sticky Footer (Прижатый низ с итогом и кнопкой) -->
         <div class="katya-drawer-footer">
           <div class="katya-total-row">
-            <span>Товары (${cart.reduce(function(a,b){return a+b.qty;},0)} шт):</span>
+            <span>Изделия (${cart.reduce(function(a,b){return a+b.qty;},0)} шт):</span>
             <span id="cart-subtotal">${itemsTotal.toLocaleString('ru-RU')} ₽</span>
           </div>
           <div class="katya-total-row">
@@ -1165,12 +1259,12 @@
             <span id="cart-final-total">${(itemsTotal + deliveryCost).toLocaleString('ru-RU')} ₽</span>
           </div>
 
-          <button type="button" class="katya-btn katya-btn-accent katya-submit-order-btn" id="katya-submit-order">
-            Оформить заказ (Оплата после подтверждения)
+          <button type="button" class="katya-btn katya-btn-primary katya-submit-order-btn" id="katya-submit-order">
+            Оформить заказ
           </button>
 
           <p class="katya-order-microcopy">
-            Заявка сразу поступит мастеру Кате. Мы свяжемся с вами в Telegram за 15 минут.
+            Оплата после подтверждения. Мастер свяжется с вами в Telegram или WhatsApp для подтверждения деталей.
           </p>
         </div>
       </div>
@@ -1181,7 +1275,7 @@
     deliveryRadios.forEach(function(radio) {
       radio.addEventListener('change', function() {
         deliveryCost = parseInt(radio.value, 10);
-        document.getElementById('cart-delivery-display').textContent = deliveryCost > 0 ? deliveryCost + ' ₽' : '0 ₽';
+        document.getElementById('cart-delivery-display').textContent = deliveryCost > 0 ? deliveryCost + ' ₽' : 'Бесплатно';
         document.getElementById('cart-final-total').textContent = (itemsTotal + deliveryCost).toLocaleString('ru-RU') + ' ₽';
         
         // Подсветка активной карточки доставки
@@ -1243,12 +1337,12 @@
     var notes = (document.getElementById('order-notes') || {}).value || '';
 
     if (!name.trim() || !phone.trim() || !address.trim()) {
-      alert('Пожалуйста, заполните обязательные поля (Имя, Телефон/Telegram и Город/Адрес).');
+      alert('Пожалуйста, заполните обязательные поля (Имя, Телефон/Telegram и Адрес доставки).');
       return;
     }
 
     var orderData = {
-      inquiry_id: 'INQ-' + Date.now(),
+      inquiry_id: 'ORD-' + Date.now(),
       created_at: new Date().toISOString(),
       type: 'retail_order',
       customer: { name: name, phone: phone },
@@ -1260,7 +1354,7 @@
 
     console.log('[Конвейер Кати] Новый заказ сформирован:', orderData);
 
-    // Очистка корзины и поздравление
+    // Очистка корзины и подтверждение
     cart = [];
     saveCart();
 
@@ -1268,11 +1362,11 @@
     if (body) {
       body.innerHTML = `
         <div class="katya-cart-success">
-          <div class="katya-success-icon">✨</div>
-          <h3 class="katya-success-title">Спасибо за заказ, ${name}!</h3>
+          <div class="katya-empty-rule"></div>
+          <h3 class="katya-success-title">Спасибо за заказ, ${name}</h3>
           <p class="katya-success-desc">
             Ваша заявка № <b>${orderData.inquiry_id}</b> принята.<br/>
-            Катя уже готовит бережную упаковку и свяжется с вами по указанному контакту <b>${phone}</b> в течение 15 минут.
+            Катя проверит наличие изделий и свяжется с вами по указанному контакту <b>${phone}</b> в течение 15 минут для согласования доставки.
           </p>
           <a href="/" class="katya-btn katya-btn-primary" id="katya-back-home">Вернуться в витрину</a>
         </div>
