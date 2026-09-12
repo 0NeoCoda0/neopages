@@ -59,20 +59,20 @@
           <ul class="katya-nav-list">
             <!-- 1. Магазин с подразделами -->
             <li class="katya-nav-item katya-has-sub">
-              <a href="#katya-sec-shop" class="katya-nav-link" data-target="shop">
+              <a href="/shop" class="katya-nav-link" data-target="shop">
                 <span class="katya-nav-num">01</span>
                 <span class="katya-nav-title">Магазин</span>
               </a>
               <ul class="katya-sub-nav">
-                <li><a href="#katya-sec-shop" class="katya-sub-link" data-cat="vases">🏺 Вазы</a></li>
-                <li><a href="#katya-sec-shop" class="katya-sub-link" data-cat="candles">🕯️ Подсвечники</a></li>
-                <li><a href="#katya-sec-shop" class="katya-sub-link" data-cat="toys">🎄 Керамические ёлочные игрушки</a></li>
+                <li><a href="/shop#vases" class="katya-sub-link">🏺 Вазы</a></li>
+                <li><a href="/shop#candles" class="katya-sub-link">🕯️ Подсвечники</a></li>
+                <li><a href="/shop#toys" class="katya-sub-link">🎄 Керамические ёлочные игрушки</a></li>
               </ul>
             </li>
 
             <!-- 2. Корпоративные заказы (между магазином и архивом) -->
             <li class="katya-nav-item">
-              <a href="#katya-sec-corporate" class="katya-nav-link" data-target="corporate">
+              <a href="/corporate" class="katya-nav-link" data-target="corporate">
                 <span class="katya-nav-num">02</span>
                 <span class="katya-nav-title">Корпоративные заказы</span>
                 <span class="katya-badge-pill">B2B</span>
@@ -81,7 +81,7 @@
 
             <!-- 3. Архив -->
             <li class="katya-nav-item">
-              <a href="#katya-sec-archive" class="katya-nav-link" data-target="archive">
+              <a href="/archive" class="katya-nav-link" data-target="archive">
                 <span class="katya-nav-num">03</span>
                 <span class="katya-nav-title">Архив</span>
               </a>
@@ -89,7 +89,7 @@
 
             <!-- 4. Обо мне -->
             <li class="katya-nav-item">
-              <a href="#katya-sec-about" class="katya-nav-link" data-target="about">
+              <a href="/about" class="katya-nav-link" data-target="about">
                 <span class="katya-nav-num">04</span>
                 <span class="katya-nav-title">Обо мне</span>
               </a>
@@ -97,7 +97,7 @@
 
             <!-- 5. Контакты -->
             <li class="katya-nav-item">
-              <a href="#katya-sec-contacts" class="katya-nav-link" data-target="contacts">
+              <a href="/contacts" class="katya-nav-link" data-target="contacts">
                 <span class="katya-nav-num">05</span>
                 <span class="katya-nav-title">Контакты</span>
               </a>
@@ -105,7 +105,7 @@
 
             <!-- 6. Частые вопросы -->
             <li class="katya-nav-item">
-              <a href="#katya-sec-faq" class="katya-nav-link" data-target="faq">
+              <a href="/faq" class="katya-nav-link" data-target="faq">
                 <span class="katya-nav-num">06</span>
                 <span class="katya-nav-title">Ответы на вопросы</span>
               </a>
@@ -208,7 +208,7 @@
             <div class="katya-hub-sublinks">
               <span>🏺 Вазы</span> · <span>🕯️ Подсвечники</span> · <span>🎄 Ёлочные игрушки</span>
             </div>
-            <a href="#katya-sec-shop" class="katya-hub-action">Смотреть изделия →</a>
+            <a href="/shop" class="katya-hub-action">Смотреть изделия →</a>
           </div>
 
           <!-- 2. Корпоративные заказы (между магазином и архивом) -->
@@ -222,7 +222,7 @@
             <div class="katya-hub-sublinks">
               <span>⚡ Калькулятор сметы</span> · <span>📦 Доставка по РФ</span>
             </div>
-            <a href="#katya-sec-corporate" class="katya-hub-action katya-action-olive">Рассчитать стоимость партии →</a>
+            <a href="/corporate" class="katya-hub-action katya-action-olive">Рассчитать стоимость партии →</a>
           </div>
 
           <!-- 3. Архив -->
@@ -233,7 +233,7 @@
             </div>
             <h3 class="katya-hub-title">Архив работ</h3>
             <p class="katya-hub-desc">Коллекция уникальных штучных и проданных работ мастерской. Вдохновение для индивидуальных заказов.</p>
-            <a href="#katya-sec-archive" class="katya-hub-action">Исследовать архив →</a>
+            <a href="/archive" class="katya-hub-action">Исследовать архив →</a>
           </div>
 
           <!-- 4. Обо мне -->
@@ -244,7 +244,7 @@
             </div>
             <h3 class="katya-hub-title">Обо мне</h3>
             <p class="katya-hub-desc">История Кати Ланчиковой, философия slow craft, почему глина и как устроен процесс обжига при 1250°C.</p>
-            <a href="#katya-sec-about" class="katya-hub-action">История мастерской →</a>
+            <a href="/about" class="katya-hub-action">История мастерской →</a>
           </div>
 
           <!-- 5. Контакты -->
@@ -255,7 +255,7 @@
             </div>
             <h3 class="katya-hub-title">Контакты</h3>
             <p class="katya-hub-desc">Прямая связь с Катей в Telegram и WhatsApp, визит в мастерскую и персональные консультации.</p>
-            <a href="#katya-sec-contacts" class="katya-hub-action">Связаться с Катей →</a>
+            <a href="/contacts" class="katya-hub-action">Связаться с Катей →</a>
           </div>
 
           <!-- 6. Частые вопросы (FAQ) -->
@@ -266,7 +266,7 @@
             </div>
             <h3 class="katya-hub-title">Частые вопросы</h3>
             <p class="katya-hub-desc">Как ухаживать за керамикой, можно ли мыть в посудомойке, гарантия сохранности при доставке по почте.</p>
-            <a href="#katya-sec-faq" class="katya-hub-action">Ответы и уход →</a>
+            <a href="/faq" class="katya-hub-action">Ответы и уход →</a>
           </div>
 
         </div>
