@@ -1,45 +1,56 @@
-/* ==========================================================================
-   КОНВЕЙЕР КАТИ — КАСТОМНЫЕ СТИЛИ ДЛЯ TILDA
-   Автоматически подключаемый файл стилей через GitHub Pages CDN.
-   Все изменения здесь моментально отражаются на живом сайте Тильды.
+﻿/* ==========================================================================
+   КОНВЕЙЕР КАТИ — КАСТОМНЫЕ СТИЛИ ДЛЯ TILDA (UI KIT КАТИ ЛАНЧИКОВОЙ)
+   Палитра: #FBF4E8 (крем-фарфор), #001F4C (индиго), #F1BFC9 (пудра), #720115 (бургунди), #ADCAE7 (небо)
+   Геометрия: мягкое скругление 6px, тонкие контуры, фото 3:4 со сменой ракурса при ховере.
    ========================================================================== */
 
-/* Подключение шрифтовой пары: Cormorant Garamond (антиква) + Nunito Sans (гротеск) */
-@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+/* 1. Подключение шрифтовой пары: Cormorant Garamond (антиква) + Nunito Sans (гротеск) */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
 
-/* 1. Глобальные переменные дизайна (Эстетика: The Magic Shop / Cord Studio) */
+/* 2. Глобальные токены дизайна */
 :root {
-  --katya-bg-linen: #F5F4F0;         /* Теплый льняной фон */
+  /* Фирменная палитра Кати */
+  --katya-bg-cream: #FBF4E8;         /* Светлый фарфорово-кремовый фон */
+  --katya-blue-deep: #001F4C;        /* Глубокий благородный индиго (основной контрастный цвет и текст) */
+  --katya-rose-powder: #F1BFC9;      /* Нежная пудровая роза (бейджи, мягкие акценты) */
+  --katya-burgundy: #720115;         /* Бургунди / спелая вишня (акцентные кнопки, маркеры) */
+  --katya-sky-accent: #ADCAE7;       /* Небесно-лазурный (дополнительный воздушный акцент) */
   --katya-bg-surface: #FFFFFF;       /* Чистый фон карточек */
-  --katya-accent-olive: #44513E;     /* Глубокая благородная олива (Cord style) */
-  --katya-accent-hover: #343E2F;     /* Олива при наведении */
-  --katya-text-dark: #1F1E1D;        /* Мягкий графитовый текст */
-  --katya-text-muted: #706E6B;       /* Приглушенный серо-земляной текст */
-  --katya-border: #E2E0D8;           /* Тонкие деликатные рамки */
+  
+  --katya-text-dark: #001F4C;        /* Текст в глубоком индиго */
+  --katya-text-muted: rgba(0, 31, 76, 0.68); /* Вспомогательный текст */
+  --katya-border: rgba(0, 31, 76, 0.16);     /* Тонкий деликатный контур */
+  --katya-border-hover: #001F4C;             /* Контур при наведении */
   
   --katya-font-serif: 'Cormorant Garamond', Garamond, 'Playfair Display', Georgia, serif;
   --katya-font-sans: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 
+  /* Геометрия */
+  --katya-radius: 6px;               /* Мягкое скругление по брифу Кати */
   --katya-radius-sm: 4px;
-  --katya-radius-md: 8px;
-  --katya-radius-lg: 16px;
+  --katya-radius-pill: 24px;
+  --katya-card-ratio: 3 / 4;         /* Вертикальные пропорции фото 3:4 */
 
-  --katya-shadow-soft: 0 8px 24px rgba(31, 30, 29, 0.05);
-  --katya-shadow-hover: 0 16px 36px rgba(31, 30, 29, 0.10);
+  --katya-shadow-soft: 0 8px 24px rgba(0, 31, 76, 0.06);
+  --katya-shadow-hover: 0 16px 36px rgba(0, 31, 76, 0.12);
   --katya-transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  --katya-transition-img: opacity 0.4s ease, transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-html {
+html, body {
+  background-color: var(--katya-bg-cream) !important;
+  color: var(--katya-text-dark);
+  font-family: var(--katya-font-sans);
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 /* ==========================================================================
-   2. ЛЕВАЯ ПАНЕЛЬ НАВИГАЦИИ (THE MAGIC SHOP SIDEBAR STYLE)
+   3. ЛЕВАЯ ПАНЕЛЬ НАВИГАЦИИ (THE MAGIC SHOP SIDEBAR STYLE)
    ========================================================================== */
 
-/* Плавающая кнопка-триггер слева */
+/* Плавающая кнопка-триггер меню слева */
 .katya-sidebar-trigger-btn {
   position: fixed;
   left: 24px;
@@ -48,23 +59,22 @@ html {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background-color: rgba(245, 244, 240, 0.94);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--katya-border);
+  background-color: rgba(251, 244, 232, 0.94);
+  backdrop-filter: blur(10px);
+  border: 1.5px solid var(--katya-blue-deep);
   padding: 10px 18px;
-  border-radius: 30px;
+  border-radius: var(--katya-radius-pill);
   cursor: pointer;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 31, 76, 0.08);
   transition: var(--katya-transition);
-  color: var(--katya-text-dark);
+  color: var(--katya-blue-deep);
 }
 
 .katya-sidebar-trigger-btn:hover {
-  background-color: var(--katya-accent-olive);
-  color: #FFFFFF;
-  border-color: var(--katya-accent-olive);
+  background-color: var(--katya-blue-deep);
+  color: var(--katya-bg-cream);
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(68, 81, 62, 0.25);
+  box-shadow: 0 6px 20px rgba(0, 31, 76, 0.25);
 }
 
 .katya-burger-icon {
@@ -114,7 +124,7 @@ html {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(31, 30, 29, 0.45);
+  background-color: rgba(0, 31, 76, 0.45);
   backdrop-filter: blur(4px);
 }
 
@@ -125,9 +135,9 @@ html {
   width: 380px;
   max-width: 88vw;
   height: 100%;
-  background-color: var(--katya-bg-linen);
-  border-right: 1px solid var(--katya-border);
-  box-shadow: 10px 0 40px rgba(0, 0, 0, 0.15);
+  background-color: var(--katya-bg-cream);
+  border-right: 1.5px solid var(--katya-blue-deep);
+  box-shadow: 10px 0 40px rgba(0, 31, 76, 0.18);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -157,7 +167,7 @@ html {
   font-size: 15px;
   font-weight: 700;
   letter-spacing: 2px;
-  color: var(--katya-accent-olive);
+  color: var(--katya-blue-deep);
   text-transform: uppercase;
 }
 
@@ -173,11 +183,11 @@ html {
 }
 
 .katya-sidebar-close:hover {
-  color: var(--katya-text-dark);
+  color: var(--katya-blue-deep);
   transform: rotate(90deg);
 }
 
-/* Список навигации сайдбара */
+/* Список навигации */
 .katya-sidebar-nav {
   flex-grow: 1;
 }
@@ -200,7 +210,7 @@ html {
   align-items: center;
   gap: 14px;
   text-decoration: none;
-  color: var(--katya-text-dark);
+  color: var(--katya-blue-deep);
   transition: var(--katya-transition);
 }
 
@@ -220,7 +230,7 @@ html {
 }
 
 .katya-nav-link:hover {
-  color: var(--katya-accent-olive);
+  color: var(--katya-burgundy);
   transform: translateX(4px);
 }
 
@@ -230,14 +240,13 @@ html {
   font-weight: 700;
   letter-spacing: 1px;
   text-transform: uppercase;
-  background-color: var(--katya-accent-olive);
+  background-color: var(--katya-burgundy);
   color: #FFFFFF;
   padding: 3px 8px;
   border-radius: 12px;
   margin-left: 6px;
 }
 
-/* Подменю Магазина (Вазы, Подсвечники, Игрушки) */
 .katya-sub-nav {
   list-style: none;
   padding: 10px 0 6px 32px;
@@ -256,12 +265,11 @@ html {
 }
 
 .katya-sub-link:hover {
-  color: var(--katya-accent-olive);
+  color: var(--katya-blue-deep);
   font-weight: 600;
   padding-left: 4px;
 }
 
-/* Футер сайдбара */
 .katya-sidebar-footer {
   border-top: 1px solid var(--katya-border);
   padding-top: 20px;
@@ -273,10 +281,11 @@ html {
   font-size: 12px;
   line-height: 1.5;
   color: var(--katya-text-muted);
-  background: rgba(68, 81, 62, 0.05);
+  background: rgba(173, 202, 231, 0.25);
   padding: 10px 14px;
-  border-radius: var(--katya-radius-sm);
+  border-radius: var(--katya-radius);
   margin-bottom: 14px;
+  border-left: 3px solid var(--katya-sky-accent);
 }
 
 .katya-social-links {
@@ -288,25 +297,206 @@ html {
 }
 
 .katya-social-links a {
-  color: var(--katya-accent-olive);
+  color: var(--katya-blue-deep);
   text-decoration: none;
   font-weight: 600;
 }
 
 /* ==========================================================================
-   3. НАВИГАЦИОННЫЙ ХАБ НА ГЛАВНОЙ СТРАНИЦЕ (ДУБЛИРОВАНИЕ 6 РАЗДЕЛОВ)
+   4. КНОПКИ И UI-КОМПОНЕНТЫ (ТОНКИЙ КОНТУР + МЯГКОЕ СКРУГЛЕНИЕ 6PX)
+   ========================================================================== */
+
+/* Тонкий контур кнопки Primary (по брифу Кати) */
+.katya-btn, .t-btn, .t-submit {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-family: var(--katya-font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  padding: 14px 28px !important;
+  border-radius: var(--katya-radius) !important;
+  border: 1.5px solid var(--katya-blue-deep) !important;
+  background-color: transparent !important;
+  color: var(--katya-blue-deep) !important;
+  text-decoration: none;
+  cursor: pointer;
+  box-sizing: border-box;
+  transition: var(--katya-transition) !important;
+}
+
+.katya-btn:hover, .t-btn:hover, .t-submit:hover {
+  background-color: var(--katya-blue-deep) !important;
+  color: var(--katya-bg-cream) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0, 31, 76, 0.18);
+}
+
+/* Кнопка Акцента / Заказа (Бургунди) */
+.katya-btn-accent {
+  background-color: var(--katya-burgundy) !important;
+  border-color: var(--katya-burgundy) !important;
+  color: #FFFFFF !important;
+}
+
+.katya-btn-accent:hover {
+  background-color: #52000e !important;
+  border-color: #52000e !important;
+  color: #FFFFFF !important;
+}
+
+/* Поля ввода (Инпуты формы) */
+input.t-input, textarea.t-input, .katya-input {
+  border-radius: var(--katya-radius) !important;
+  border: 1.5px solid var(--katya-border) !important;
+  background-color: var(--katya-bg-surface) !important;
+  color: var(--katya-text-dark) !important;
+  font-family: var(--katya-font-sans) !important;
+  transition: var(--katya-transition);
+}
+
+input.t-input:focus, textarea.t-input:focus, .katya-input:focus {
+  border-color: var(--katya-blue-deep) !important;
+  outline: none !important;
+  box-shadow: 0 0 0 3px rgba(0, 31, 76, 0.1) !important;
+}
+
+/* ==========================================================================
+   5. КАРТОЧКИ ТОВАРОВ (ПРОПОРЦИЯ 3:4 И СМЕНА РАКУРСА ПРИ ХОВЕРЕ)
+   ========================================================================== */
+
+.katya-product-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--katya-bg-surface);
+  border-radius: var(--katya-radius);
+  border: 1.5px solid var(--katya-border);
+  overflow: hidden;
+  transition: var(--katya-transition);
+  box-shadow: var(--katya-shadow-soft);
+}
+
+.katya-product-card:hover {
+  border-color: var(--katya-blue-deep);
+  transform: translateY(-4px);
+  box-shadow: var(--katya-shadow-hover);
+}
+
+/* Контейнер фото 3:4 */
+.katya-product-media {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  background-color: var(--katya-bg-cream);
+}
+
+/* Смена кадра при наведении (двойной ракурс) */
+.katya-product-media img.katya-img-primary,
+.katya-product-media img.katya-img-secondary {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: var(--katya-transition-img);
+}
+
+.katya-product-media img.katya-img-primary {
+  opacity: 1;
+  z-index: 1;
+}
+
+.katya-product-media img.katya-img-secondary {
+  opacity: 0;
+  z-index: 2;
+  transform: scale(1.04);
+}
+
+.katya-product-card:hover .katya-product-media img.katya-img-secondary {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.katya-product-card:hover .katya-product-media img.katya-img-primary {
+  opacity: 0;
+}
+
+/* Статус-бейджи на карточках */
+.katya-product-badge {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 5;
+  font-family: var(--katya-font-sans);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: var(--katya-radius-pill);
+}
+
+.katya-badge-new {
+  background-color: var(--katya-rose-powder);
+  color: var(--katya-burgundy);
+}
+
+.katya-badge-sold {
+  background-color: var(--katya-sky-accent);
+  color: var(--katya-blue-deep);
+}
+
+/* Описание под фото в карточке */
+.katya-product-info {
+  padding: 16px 18px 20px 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.katya-product-category {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: var(--katya-text-muted);
+}
+
+.katya-product-title {
+  font-family: var(--katya-font-serif);
+  font-size: 20px;
+  font-weight: 600;
+  color: var(--katya-blue-deep);
+  margin: 0;
+}
+
+.katya-product-price {
+  font-family: var(--katya-font-sans);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--katya-burgundy);
+  margin-top: 4px;
+}
+
+/* ==========================================================================
+   6. ХАБ-ВИДЖЕТ НА ГЛАВНОЙ СТРАНИЦЕ (6 КАРТОЧЕК РАЗДЕЛОВ)
    ========================================================================== */
 
 .katya-showcase-section {
-  background-color: var(--katya-bg-linen) !important;
+  background-color: var(--katya-bg-cream) !important;
   color: var(--katya-text-dark);
   font-family: var(--katya-font-sans);
   padding: 90px 20px;
   position: relative;
   overflow: hidden;
   box-sizing: border-box;
-  border-top: 1px solid var(--katya-border);
-  border-bottom: 1px solid var(--katya-border);
+  border-top: 1.5px solid var(--katya-border);
+  border-bottom: 1.5px solid var(--katya-border);
 }
 
 .katya-container {
@@ -320,14 +510,14 @@ html {
   display: inline-flex;
   align-items: center;
   gap: 8px;
-  background-color: rgba(68, 81, 62, 0.08);
-  color: var(--katya-accent-olive);
+  background-color: var(--katya-rose-powder);
+  color: var(--katya-burgundy);
   font-size: 11px;
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
   padding: 6px 18px;
-  border-radius: 30px;
+  border-radius: var(--katya-radius-pill);
   margin-bottom: 22px;
 }
 
@@ -335,15 +525,15 @@ html {
   width: 6px;
   height: 6px;
   border-radius: 50%;
-  background-color: var(--katya-accent-olive);
+  background-color: var(--katya-burgundy);
 }
 
 .katya-title {
   font-family: var(--katya-font-serif) !important;
-  font-size: clamp(30px, 4vw, 48px);
+  font-size: clamp(32px, 4.5vw, 52px);
   font-weight: 600;
   line-height: 1.15;
-  color: var(--katya-text-dark);
+  color: var(--katya-blue-deep);
   margin: 0 0 16px 0;
   letter-spacing: -0.5px;
 }
@@ -357,7 +547,6 @@ html {
   margin: 0 auto 50px auto;
 }
 
-/* Сетка 6 навигационных карточек на Главной */
 .katya-hub-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -378,11 +567,10 @@ html {
   }
 }
 
-/* Карточка раздела */
 .katya-hub-card {
   background-color: var(--katya-bg-surface);
-  border: 1px solid var(--katya-border);
-  border-radius: var(--katya-radius-md);
+  border: 1.5px solid var(--katya-border);
+  border-radius: var(--katya-radius);
   padding: 30px 26px;
   display: flex;
   flex-direction: column;
@@ -392,15 +580,14 @@ html {
 }
 
 .katya-hub-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-4px);
   box-shadow: var(--katya-shadow-hover);
-  border-color: #D1CFC7;
+  border-color: var(--katya-blue-deep);
 }
 
-/* Выделение B2B карточки */
 .katya-card-highlight {
-  border: 2px solid var(--katya-accent-olive);
-  background: linear-gradient(180deg, #FFFFFF 0%, #FAF9F5 100%);
+  border: 2px solid var(--katya-blue-deep);
+  background: linear-gradient(180deg, #FFFFFF 0%, #FBF4E8 100%);
 }
 
 .katya-hub-header {
@@ -422,15 +609,15 @@ html {
   font-size: 11px;
   text-transform: uppercase;
   letter-spacing: 1px;
-  color: var(--katya-accent-olive);
+  color: var(--katya-burgundy);
   font-weight: 700;
 }
 
 .katya-hub-title {
   font-family: var(--katya-font-serif);
-  font-size: 24px;
+  font-size: 26px;
   font-weight: 600;
-  color: var(--katya-text-dark);
+  color: var(--katya-blue-deep);
   margin: 0 0 10px 0;
 }
 
@@ -445,7 +632,7 @@ html {
 
 .katya-hub-sublinks {
   font-size: 12px;
-  color: var(--katya-accent-olive);
+  color: var(--katya-blue-deep);
   font-weight: 600;
   margin-bottom: 18px;
 }
@@ -457,7 +644,7 @@ html {
   letter-spacing: 1px;
   text-transform: uppercase;
   text-decoration: none;
-  color: var(--katya-text-dark);
+  color: var(--katya-blue-deep);
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -465,28 +652,27 @@ html {
 }
 
 .katya-hub-action:hover {
-  color: var(--katya-accent-olive);
+  color: var(--katya-burgundy);
   gap: 10px;
 }
 
 .katya-action-olive {
-  color: var(--katya-accent-olive) !important;
+  color: var(--katya-burgundy) !important;
 }
 
-/* Нижняя плашка правила доставки */
 .katya-shipping-bar {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background-color: rgba(68, 81, 62, 0.06);
-  border: 1px solid var(--katya-border);
+  background-color: rgba(173, 202, 231, 0.35);
+  border: 1.5px solid var(--katya-sky-accent);
   padding: 12px 24px;
-  border-radius: 30px;
+  border-radius: var(--katya-radius-pill);
   font-size: 13px;
-  color: var(--katya-text-muted);
+  color: var(--katya-blue-deep);
   margin-top: 10px;
 }
 
 .katya-shipping-bar b {
-  color: var(--katya-text-dark);
+  color: var(--katya-blue-deep);
 }
