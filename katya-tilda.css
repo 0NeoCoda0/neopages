@@ -1,68 +1,226 @@
 /* ==========================================================================
    КОНВЕЙЕР КАТИ — КАСТОМНЫЕ СТИЛИ ДЛЯ TILDA
-   Автоматически подключаемый файл стилей.
-   Любые изменения здесь моментально отражаются на сайте Тильды.
+   Автоматически подключаемый файл стилей через GitHub Pages CDN.
+   Все изменения здесь моментально отражаются на живом сайте Тильды.
    ========================================================================== */
 
-/* 1. Глобальные переменные дизайна (дизайн-система) */
+/* Подключение благородной шрифтовой пары (Антиква + Гротеск) */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400&family=Nunito+Sans:ital,wght@0,300;0,400;0,600;0,700;1,400&display=swap');
+
+/* 1. Глобальные переменные дизайна (Эстетика: The Magic Shop / Cord Studio) */
 :root {
-  --katya-primary: #ff5c39;          /* Основной акцентный цвет */
-  --katya-primary-hover: #e04a29;    /* Цвет кнопки при наведении */
-  --katya-bg-light: #fbfbfb;         /* Фоновый светлый */
-  --katya-text-dark: #1b1b1b;        /* Основной темный текст */
-  --katya-text-muted: #737373;       /* Приглушенный текст */
-  --katya-radius-sm: 8px;            /* Радиус скругления малый */
-  --katya-radius-md: 16px;           /* Радиус карточек */
-  --katya-radius-lg: 24px;           /* Радиус крупных блоков */
-  --katya-shadow-card: 0 10px 30px rgba(0, 0, 0, 0.06);
-  --katya-shadow-hover: 0 16px 40px rgba(0, 0, 0, 0.12);
-  --katya-transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  --katya-bg-linen: #F5F4F0;         /* Теплый льняной фон */
+  --katya-bg-surface: #FFFFFF;       /* Чистый фон карточек */
+  --katya-accent-olive: #44513E;     /* Глубокая благородная олива (Cord style) */
+  --katya-accent-hover: #343E2F;     /* Олива при наведении */
+  --katya-text-dark: #1F1E1D;        /* Мягкий графитовый текст */
+  --katya-text-muted: #706E6B;       /* Приглушенный серо-земляной текст */
+  --katya-border: #E2E0D8;           /* Тонкие деликатные рамки */
+  
+  --katya-font-serif: 'Cormorant Garamond', Garamond, 'Playfair Display', Georgia, serif;
+  --katya-font-sans: 'Nunito Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  --katya-radius-sm: 4px;
+  --katya-radius-md: 8px;
+  --katya-radius-lg: 16px;
+
+  --katya-shadow-soft: 0 8px 24px rgba(31, 30, 29, 0.05);
+  --katya-shadow-hover: 0 16px 36px rgba(31, 30, 29, 0.10);
+  --katya-transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* 2. Кастомизация типографики и плавного скролла */
+/* 2. Плавный скролл и глобальное сглаживание шрифтов */
 html {
   scroll-behavior: smooth;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* 3. Улучшение кнопок Тильды во всех блоках */
+/* 3. Новый авторский блок-витрина (инжектируемый под верхний cover) */
+.katya-showcase-section {
+  background-color: var(--katya-bg-linen) !important;
+  color: var(--katya-text-dark);
+  font-family: var(--katya-font-sans);
+  padding: 85px 20px;
+  position: relative;
+  overflow: hidden;
+  box-sizing: border-box;
+  border-top: 1px solid var(--katya-border);
+  border-bottom: 1px solid var(--katya-border);
+}
+
+.katya-container {
+  max-width: 1160px;
+  margin: 0 auto;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+/* Бейдж студии */
+.katya-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: rgba(68, 81, 62, 0.08);
+  color: var(--katya-accent-olive);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 16px;
+  border-radius: 30px;
+  margin-bottom: 24px;
+}
+
+.katya-badge-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--katya-accent-olive);
+}
+
+/* Заголовок блока (Антиква) */
+.katya-title {
+  font-family: var(--katya-font-serif) !important;
+  font-size: clamp(28px, 4vw, 46px);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--katya-text-dark);
+  margin: 0 0 18px 0;
+  letter-spacing: -0.5px;
+}
+
+/* Описание блока */
+.katya-subtitle {
+  font-family: var(--katya-font-sans);
+  font-size: 16px;
+  line-height: 1.65;
+  color: var(--katya-text-muted);
+  max-width: 720px;
+  margin: 0 auto 50px auto;
+  font-weight: 400;
+}
+
+/* Сетка карточек преимуществ */
+.katya-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  margin-bottom: 50px;
+  text-align: left;
+}
+
+@media (max-width: 860px) {
+  .katya-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+/* Карточка */
+.katya-card {
+  background-color: var(--katya-bg-surface);
+  border: 1px solid var(--katya-border);
+  border-radius: var(--katya-radius-md);
+  padding: 36px 28px;
+  transition: var(--katya-transition);
+  box-shadow: var(--katya-shadow-soft);
+  position: relative;
+}
+
+.katya-card:hover {
+  transform: translateY(-5px);
+  box-shadow: var(--katya-shadow-hover);
+  border-color: #D1CFC7;
+}
+
+.katya-card-icon {
+  font-size: 32px;
+  margin-bottom: 18px;
+  display: inline-block;
+}
+
+.katya-card-title {
+  font-family: var(--katya-font-serif);
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--katya-text-dark);
+  margin: 0 0 12px 0;
+}
+
+.katya-card-text {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--katya-text-muted);
+  margin: 0;
+}
+
+/* Панель действий и статус */
+.katya-action-bar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+}
+
+/* Основная кнопка студии */
+.katya-primary-btn {
+  background-color: var(--katya-accent-olive) !important;
+  color: #FFFFFF !important;
+  font-family: var(--katya-font-sans) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  padding: 16px 36px !important;
+  border: none !important;
+  border-radius: var(--katya-radius-sm) !important;
+  cursor: pointer !important;
+  transition: var(--katya-transition) !important;
+  box-shadow: 0 4px 14px rgba(68, 81, 62, 0.25) !important;
+}
+
+.katya-primary-btn:hover {
+  background-color: var(--katya-accent-hover) !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(68, 81, 62, 0.35) !important;
+}
+
+/* Индикатор связи */
+.katya-live-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: #5A7453;
+  background: rgba(90, 116, 83, 0.08);
+  padding: 6px 14px;
+  border-radius: 20px;
+}
+
+.katya-status-dot {
+  width: 7px;
+  height: 7px;
+  background-color: #2ECC71;
+  border-radius: 50%;
+  box-shadow: 0 0 8px #2ECC71;
+  animation: katyaPulse 2s infinite;
+}
+
+@keyframes katyaPulse {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(46, 204, 113, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(46, 204, 113, 0); }
+}
+
+/* 4. Стилизация стандартных кнопок и форм Тильды под общий бренд */
 .t-btn, .t-submit {
   border-radius: var(--katya-radius-sm) !important;
+  font-family: var(--katya-font-sans) !important;
+  letter-spacing: 1px !important;
   transition: var(--katya-transition) !important;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 }
 
 .t-btn:hover, .t-submit:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15) !important;
 }
-
-/* 4. Карточки товаров и витрина (поддомен D4) */
-.t-store__card, .t-card__col {
-  border-radius: var(--katya-radius-md) !important;
-  transition: var(--katya-transition) !important;
-  background-color: #ffffff;
-}
-
-.t-store__card:hover, .t-card__col:hover {
-  transform: translateY(-4px);
-  box-shadow: var(--katya-shadow-hover) !important;
-}
-
-/* 5. Поля ввода и формы заявок */
-.t-input {
-  border-radius: var(--katya-radius-sm) !important;
-  border: 1px solid #e0e0e0 !important;
-  transition: var(--katya-transition) !important;
-}
-
-.t-input:focus {
-  border-color: var(--katya-primary) !important;
-  box-shadow: 0 0 0 3px rgba(255, 92, 57, 0.15) !important;
-}
-
-/* 6. Блок для стилизации конкретных страниц (пример):
-#page200072009 {
-  // Специфичные стили для магазина Shetuka
-}
-*/
