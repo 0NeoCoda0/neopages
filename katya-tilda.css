@@ -224,3 +224,66 @@ html {
 .t-btn:hover, .t-submit:hover {
   transform: translateY(-2px);
 }
+
+/* 5. Стилизация каталога и фильтров подразделов (Вазы / Подсвечники / Игрушки) */
+.t-store__filter-wrapper, .t-store__tabs {
+  margin: 40px auto 30px auto !important;
+  text-align: center !important;
+  font-family: var(--katya-font-sans) !important;
+}
+
+.t-store__filter-btn, .t-store__tabs__item {
+  font-family: var(--katya-font-sans) !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  letter-spacing: 1.5px !important;
+  text-transform: uppercase !important;
+  color: var(--katya-text-muted) !important;
+  padding: 10px 22px !important;
+  border-radius: var(--katya-radius-sm) !important;
+  transition: var(--katya-transition) !important;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+}
+
+.t-store__filter-btn:hover, .t-store__tabs__item:hover {
+  color: var(--katya-accent-olive) !important;
+  border-color: var(--katya-border) !important;
+  background: #FFFFFF !important;
+}
+
+.t-store__filter-btn.t-active, .t-store__tabs__item_active {
+  color: #FFFFFF !important;
+  background-color: var(--katya-accent-olive) !important;
+  border-color: var(--katya-accent-olive) !important;
+  box-shadow: 0 4px 14px rgba(68, 81, 62, 0.2) !important;
+}
+
+/* Карточки товаров в каталоге Tilda Store */
+.t-store__card {
+  border: 1px solid var(--katya-border) !important;
+  border-radius: var(--katya-radius-md) !important;
+  overflow: hidden !important;
+  background: #FFFFFF !important;
+  transition: var(--katya-transition) !important;
+}
+
+.t-store__card:hover {
+  transform: translateY(-5px) !important;
+  box-shadow: var(--katya-shadow-hover) !important;
+}
+
+.t-store__card__title {
+  font-family: var(--katya-font-serif) !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  color: var(--katya-text-dark) !important;
+}
+
+.t-store__card__price-value {
+  font-family: var(--katya-font-sans) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  color: var(--katya-accent-olive) !important;
+}
+
