@@ -51,12 +51,20 @@
       <div class="katya-sidebar-overlay" id="katya-sidebar-overlay"></div>
       <aside class="katya-sidebar-panel" aria-label="Боковая навигация">
         <div class="katya-sidebar-header">
-          <div class="katya-sidebar-brand">✦ КАТЯ ЛАНЧИКОВА ✦</div>
+          <a href="/" class="katya-sidebar-brand" style="text-decoration:none; color:inherit;">✦ КАТЯ ЛАНЧИКОВА ✦</a>
           <button type="button" class="katya-sidebar-close" id="katya-sidebar-close" aria-label="Закрыть меню">✕</button>
         </div>
 
         <nav class="katya-sidebar-nav">
           <ul class="katya-nav-list">
+            <!-- 0. Главная -->
+            <li class="katya-nav-item">
+              <a href="/" class="katya-nav-link" data-target="home">
+                <span class="katya-nav-num">00</span>
+                <span class="katya-nav-title">Главная</span>
+              </a>
+            </li>
+
             <!-- 1. Магазин с подразделами -->
             <li class="katya-nav-item katya-has-sub">
               <a href="/shop" class="katya-nav-link" data-target="shop">
