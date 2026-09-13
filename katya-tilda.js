@@ -394,6 +394,10 @@
   /**
    * Монтирование полного Шоурума на Главной странице (Showroom Hub)
    */
+  /**
+   * Монтирование полного Шоурума на Главной странице (Showroom Hub)
+   * Новый дизайн: плакатный Hero (Cormorant Garamond) + Монолитная плита-трансформер со стрелкой
+   */
   function mountFullShowroomLanding() {
     var target = document.getElementById('allrecords') || document.querySelector('.t-records') || document.body;
     if (!target) return;
@@ -407,28 +411,142 @@
     }
 
     container.innerHTML = `
-      <!-- 1. HERO BLOCK -->
-      <section class="katya-hero-section">
-        <div class="katya-hero-overlay"></div>
-        <div class="katya-hero-content">
-          <div class="katya-hero-badge">Авторская керамика ручной работы</div>
-          <h1 class="katya-hero-title">Сказка внутри каждого предмета</h1>
-          <p class="katya-hero-lead">
-            Живые формы, рожденные из шамотной глины, воды и огня.<br/>
-            Высокотемпературный обжиг при 1250°C. Вещи, хранящие тепло человеческих рук.
-          </p>
-          <div class="katya-hero-actions">
-            <a href="#curated-drop" class="katya-hero-link-primary">Смотреть коллекцию ↓</a>
-            <a href="/about" class="katya-hero-link-secondary">История мастера →</a>
+      <!-- ЭКРАН 1: МОНУМЕНТАЛЬНЫЙ ПЛАКАТНЫЙ МАНИФЕСТ С ФОТО-ЯКОРЕМ -->
+      <section class="section-hero" id="hero" aria-label="Манифест">
+        <div class="hero-container">
+          <div class="hero-topline">
+            <span class="meta-label">★ СТУДИЯ АВТОРСКОЙ КЕРАМИКИ · МОСКВА ★</span>
+            <span class="meta-status">1250°C ВЫСОКИЙ ОБЖИГ · ДРОП №14 ДОСТУПЕН</span>
           </div>
-        </div>
-        <div class="katya-hero-scroll-hint">
-          <span>Листайте вниз</span>
-          <div class="katya-scroll-line"></div>
+
+          <div class="hero-main-composition">
+            <div class="hero-typography">
+              <h1 class="poster-title">
+                <span class="title-row title-row-main">СКАЗКА</span>
+                <span class="title-row title-row-sub">
+                  <span class="accent-word">ВНУТРИ</span>
+                  <span class="title-meta-note">КАЖДОГО<br>ПРЕДМЕТА</span>
+                </span>
+              </h1>
+              <p class="hero-statement">
+                Штучная керамика ручной лепки. Живой край, биоморфные формы и тактильные глазури. Ни одного одинакового предмета.
+              </p>
+            </div>
+
+            <div class="hero-visual-anchor">
+              <div class="hero-photo-wrapper">
+                <img src="https://0neocoda0.github.io/neopages/hero_ceramic.jpg" alt="Авторская керамика Кати Ланчиковой в интерьере" class="hero-art-photo">
+                <span class="photo-art-badge">ШТУЧНЫЙ ОБЪЕКТ · СЕРИЯ 2026</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="hero-bottomline">
+            <span class="hero-geo-tag">МОСКВА · СТУДИЯ КАТИ ЛАНЧИКОВОЙ</span>
+            <a href="#portal" class="scroll-link" aria-label="Перейти к выбору">
+              <span class="scroll-text">СМОТРЕТЬ НАПРАВЛЕНИЯ</span>
+              <span class="scroll-glyph" aria-hidden="true">↓</span>
+            </a>
+          </div>
         </div>
       </section>
 
-      <!-- 2. CURATED DROP (КАТАЛОГ 3:4 С HOVER SWAP) -->
+      <!-- ЭКРАН 2: МОНОЛИТНАЯ ПЛИТА-ТРАНСФОРМЕР (ВИТРИНА / ТИРАЖИ) -->
+      <section class="section-transformer" id="portal" aria-label="Интерактивная развилка">
+        <div class="transformer-wrapper">
+          
+          <div class="transformer-switch-bar">
+            <span class="switch-title">АРХИТЕКТУРА НАПРАВЛЕНИЙ</span>
+            <div class="switch-actions">
+              <button type="button" class="switch-nav-item is-active" id="btnModeB2c" data-mode="b2c">
+                — 01 / ВИТРИНА ДЛЯ ДОМА —
+              </button>
+              <button type="button" class="switch-nav-item" id="btnModeB2b" data-mode="b2b">
+                — 02 / ТИРАЖИ ДЛЯ БИЗНЕСА —
+              </button>
+            </div>
+          </div>
+
+          <div class="monolith-slab" id="monolithSlab" data-state="b2c">
+
+            <!-- СТОРОНА 1: ВИТРИНА / B2C (АКТИВНА ПО УМОЛЧАНИЮ) -->
+            <article class="slab-layer layer-b2c" id="layerB2c">
+              <div class="layer-content">
+                <div class="layer-header">
+                  <span class="layer-badge">★ ШТУЧНЫЕ АРТЕФАКТЫ</span>
+                  <span class="layer-count">ДРОП №14 · 12 ПРЕДМЕТОВ В НАЛИЧИИ</span>
+                </div>
+
+                <div class="layer-hero-text">
+                  <h2 class="slab-title">ВИТРИНА</h2>
+                  <p class="slab-lead">
+                    Штучные чашки, вазы и объекты для дома. Каждый предмет вылеплен вручную, хранит след пальцев и тепло высокотемпературного обжига.
+                  </p>
+                </div>
+
+                <div class="layer-footer">
+                  <a href="/shop" class="btn-cta btn-cta-primary">
+                    <span>Смотреть наличие</span>
+                    <span class="btn-arrow" aria-hidden="true">→</span>
+                  </a>
+
+                  <button type="button" class="trigger-switch" id="triggerToB2b" aria-label="Показать предложение для бизнеса">
+                    <span class="trigger-label">Нужна посуда для ресторана или тираж со смыслом?</span>
+                    <span class="trigger-action">ДЛЯ БИЗНЕСА И РЕСТОРАНОВ [ → ]</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="layer-visual" aria-hidden="true">
+                <div class="photo-frame">
+                  <img src="https://0neocoda0.github.io/neopages/ceramic_cup.jpg" alt="Авторская керамическая чашка Кати Ланчиковой" class="ceramic-photo">
+                  <div class="photo-caption">[ АВТОРСКИЙ ШАМОТ · РУЧНАЯ ЛЕПКА ]</div>
+                </div>
+              </div>
+            </article>
+
+            <!-- СТОРОНА 2: ТИРАЖИ / B2B (СКРЫТА ДО НАЖАТИЯ СТРЕЛКИ) -->
+            <article class="slab-layer layer-b2b" id="layerB2b">
+              <div class="layer-content">
+                <div class="layer-header">
+                  <span class="layer-badge layer-badge-dark">★ B2B & RESTAURANTS</span>
+                  <span class="layer-count">ПАРТИИ ОТ 20 ДО 1000 ШТ</span>
+                </div>
+
+                <div class="layer-hero-text">
+                  <h2 class="slab-title slab-title-light">ТИРАЖИ</h2>
+                  <p class="slab-lead slab-lead-light">
+                    Авторская посуда для ресторанов высокой кухни, отелей и корпоративные подарки. Индивидуальная форма, тестирование глазури и фирменное клеймение.
+                  </p>
+                </div>
+
+                <div class="layer-footer">
+                  <a href="/corporate" class="btn-cta btn-cta-secondary">
+                    <span>Рассчитать партию в калькуляторе</span>
+                    <span class="btn-arrow" aria-hidden="true">→</span>
+                  </a>
+
+                  <button type="button" class="trigger-switch trigger-switch-light" id="triggerToB2c" aria-label="Вернуться к штучной керамике">
+                    <span class="trigger-label">Ищете штучный предмет в коллекцию?</span>
+                    <span class="trigger-action">[ ← ] ВИТРИНА ДЛЯ ДОМА</span>
+                  </button>
+                </div>
+              </div>
+
+              <div class="layer-visual" aria-hidden="true">
+                <div class="photo-frame">
+                  <img src="https://0neocoda0.github.io/neopages/ceramic_b2b.jpg" alt="Керамическая посуда для ресторанов ручной работы" class="ceramic-photo">
+                  <div class="photo-caption">[ СЕТ ПОСУДЫ ДЛЯ ЗАВЕДЕНИЙ ]</div>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 3. ВИТРИНА КАТАЛОГА (ДРОП) -->
       <section class="katya-drop-section" id="curated-drop">
         <div class="katya-container">
           <div class="katya-section-header katya-header-craft">
@@ -437,7 +555,6 @@
               Штучные изделия ручной лепки из шамота и полуфарфора. Высокотемпературный обжиг.
             </p>
 
-            <!-- Легкие текстовые фильтры (Cord Studio & Lucy McCall style) -->
             <nav class="katya-filter-links" aria-label="Фильтрация коллекции">
               <button type="button" class="katya-filter-link active" data-cat="all">Все предметы</button>
               <button type="button" class="katya-filter-link" data-cat="vases">Вазы</button>
@@ -446,7 +563,6 @@
             </nav>
           </div>
 
-          <!-- Сетка товаров -->
           <div class="katya-products-grid" id="katya-products-grid">
             ${renderProductCardsHtml(PRODUCTS)}
           </div>
@@ -457,120 +573,75 @@
         </div>
       </section>
 
-      <!-- 3. СТОРИТЕЛЛИНГ / СТУДИЯ (SLOW CRAFT) -->
-      <section class="katya-story-section">
-        <div class="katya-container katya-story-grid">
-          <div class="katya-story-visual">
-            <div class="katya-story-img-wrap">
-              <img src="https://images.unsplash.com/photo-1565193566173-7a0ee3dbe261?q=80&w=800&auto=format&fit=crop" alt="Катя Ланчикова в мастерской" class="katya-story-img"/>
-              <div class="katya-story-tag">Мастерская • Москва</div>
-            </div>
+      <!-- 4. ЛАКОНИЧНЫЙ СВЕТЛЫЙ ФУТЕР (LUCY MCCALL STYLE) -->
+      <footer class="section-footer" id="contacts" aria-label="Контакты">
+        <div class="footer-container">
+          <div class="footer-headline">
+            <span class="footer-big-text">СВЯЗАТЬСЯ СО СТУДИЕЙ</span>
           </div>
-          <div class="katya-story-text">
-            <span class="katya-badge katya-badge-light">ФИЛОСОФИЯ SLOW CRAFT</span>
-            <h2 class="katya-story-quote">«В мире спешки я выбираю медленный диалог с глиной»</h2>
-            <p class="katya-story-p">
-              Каждый предмет студии формуется исключительно вручную — без конвейерных гипсовых форм и шаблонной штамповки. Мы сушим изделия неделями и закаляем их в печи при температуре 1250°C.
-            </p>
-            <div class="katya-story-facts">
-              <div class="katya-fact-item">
-                <span class="katya-fact-val">1250°C</span>
-                <span class="katya-fact-lbl">Плотность камня, водонепроницаемость</span>
-              </div>
-              <div class="katya-fact-item">
-                <span class="katya-fact-val">100% Eco</span>
-                <span class="katya-fact-lbl">Безопасные пищевые глазури без свинца</span>
-              </div>
-              <div class="katya-fact-item">
-                <span class="katya-fact-val">Штучность</span>
-                <span class="katya-fact-lbl">Уникальный тактильный характер</span>
-              </div>
-            </div>
-            <a href="/about" class="katya-btn katya-btn-primary">Узнать больше об авторе →</a>
-          </div>
-        </div>
-      </section>
 
-      <!-- 4. ГАРАНТИИ БЕРЕЖНОЙ ДОСТАВКИ (СВЕЖИЙ ВЕКТОРНЫЙ ДИЗАЙН) -->
-      <section class="katya-guarantees-section">
-        <div class="katya-container">
-          <div class="katya-guarantees-grid">
-            <div class="katya-guarantee-card">
-              <div class="katya-g-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/>
-                  <path d="m3.3 7 8.7 5 8.7-5"/>
-                  <path d="M12 22V12"/>
-                </svg>
-              </div>
-              <h4 class="katya-g-title">Тройная крафт-защита</h4>
-              <p class="katya-g-desc">Сотовая эко-бумага, индивидуальный брендированный бокс и усиленный транспортировочный короб.</p>
+          <div class="footer-details">
+            <div class="detail-block">
+              <span class="detail-label">МАСТЕРСКАЯ</span>
+              <p class="detail-val">Москва, арт-кластер · Посещение по записи</p>
             </div>
-            <div class="katya-guarantee-card">
-              <div class="katya-g-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/>
-                  <path d="m9 12 2 2 4-4"/>
-                </svg>
-              </div>
-              <h4 class="katya-g-title">100% страховка боя</h4>
-              <p class="katya-g-desc">Если изделие повредится при доставке, мы бесплатно повторим работу или вернем деньги в день обращения.</p>
-            </div>
-            <div class="katya-guarantee-card">
-              <div class="katya-g-icon">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-                  <rect width="16" height="13" x="1" y="6" rx="2"/>
-                  <path d="M16 8h4l3 3v5h-7V8z"/>
-                  <circle cx="5.5" cy="18.5" r="2.5"/>
-                  <circle cx="18.5" cy="18.5" r="2.5"/>
-                </svg>
-              </div>
-              <h4 class="katya-g-title">Бережная отправка по РФ</h4>
-              <p class="katya-g-desc">СДЭК до двери/ПВЗ и Почта 1 класса за 2–4 дня. Персональный трек-номер прямо в Telegram.</p>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      <!-- 7. FOOTER -->
-      <footer class="katya-footer">
-        <div class="katya-container katya-footer-container">
-          <div class="katya-footer-col">
-            <span class="katya-footer-brand">КАТЯ ЛАНЧИКОВА</span>
-            <p class="katya-footer-desc">Студия авторской интерьерной керамики ручной работы. Сказка внутри каждого предмета.</p>
+            <div class="detail-block">
+              <span class="detail-label">ПРЯМАЯ СВЯЗЬ</span>
+              <p class="detail-val">
+                <a href="https://t.me/lanchikateceramic" target="_blank" rel="noopener" class="footer-link">Telegram: @lanchikateceramic</a><br>
+                <a href="mailto:studio@lanchikova.ru" class="footer-link">studio@lanchikova.ru</a>
+              </p>
+            </div>
+
+            <div class="detail-block">
+              <span class="detail-label">НАПРАВЛЕНИЯ</span>
+              <p class="detail-val">
+                <a href="/shop" class="footer-link">Розничный каталог</a> · 
+                <a href="/corporate" class="footer-link">Калькулятор партий</a> · 
+                <a href="/corporate" class="footer-link">B2B сотрудничество</a>
+              </p>
+            </div>
           </div>
-          <div class="katya-footer-col">
-            <h5 class="katya-footer-heading">Навигация</h5>
-            <ul class="katya-footer-links">
-              <li><a href="/shop">Магазин керамики</a></li>
-              <li><a href="/corporate">Корпоративные подарки</a></li>
-              <li><a href="/archive">Архив работ</a></li>
-              <li><a href="/about">О мастере</a></li>
-            </ul>
-          </div>
-          <div class="katya-footer-col">
-            <h5 class="katya-footer-heading">Помощь и связь</h5>
-            <ul class="katya-footer-links">
-              <li><a href="/faq">Правила ухода и FAQ</a></li>
-              <li><a href="/contacts">Контакты мастерской</a></li>
-              <li><a href="https://t.me/katya_ceramics" target="_blank" rel="noopener">Telegram-канал</a></li>
-            </ul>
-          </div>
-        </div>
-        <div class="katya-footer-bottom">
-          <div class="katya-container">
-            <span>© 2026 Студия Кати Ланчиковой. Все права защищены.</span>
+
+          <div class="footer-copyright">
+            <span>© 2026 КАТЯ ЛАНЧИКОВА. ВСЕ ПРАВА ЗАЩИЩЕНЫ.</span>
+            <span class="mono-sign">SLOW CRAFT & ART POTTERY</span>
           </div>
         </div>
       </footer>
     `;
 
     bindCatalogEvents();
+    bindTransformerEvents();
   }
 
-  /**
-   * Монтирование выделенной страницы B2B / Корпоративные заказы (/corporate)
-   */
+  function bindTransformerEvents() {
+    var slab = document.getElementById('monolithSlab');
+    var btnModeB2c = document.getElementById('btnModeB2c');
+    var btnModeB2b = document.getElementById('btnModeB2b');
+    var triggerToB2b = document.getElementById('triggerToB2b');
+    var triggerToB2c = document.getElementById('triggerToB2c');
+
+    if (!slab) return;
+
+    function setMode(mode) {
+      slab.setAttribute('data-state', mode);
+      if (mode === 'b2c') {
+        if (btnModeB2c) btnModeB2c.classList.add('is-active');
+        if (btnModeB2b) btnModeB2b.classList.remove('is-active');
+      } else {
+        if (btnModeB2b) btnModeB2b.classList.add('is-active');
+        if (btnModeB2c) btnModeB2c.classList.remove('is-active');
+      }
+    }
+
+    if (btnModeB2c) btnModeB2c.addEventListener('click', function() { setMode('b2c'); });
+    if (btnModeB2b) btnModeB2b.addEventListener('click', function() { setMode('b2b'); });
+    if (triggerToB2b) triggerToB2b.addEventListener('click', function() { setMode('b2b'); });
+    if (triggerToB2c) triggerToB2c.addEventListener('click', function() { setMode('b2c'); });
+  }
+
   function mountB2BLanding() {
     var target = document.getElementById('allrecords') || document.querySelector('.t-records') || document.body;
     if (!target) return;
